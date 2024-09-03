@@ -1,0 +1,84 @@
+
+table,
+th,
+td {
+    border-collapse: collapse;
+    border: 0px solid #EEEEEE !important;
+    padding: 3px 5px;
+}
+
+table>tr>td>table>tr>td {
+    border: 0px solid #000000 !important;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table td {
+    word-wrap: break-word;
+    /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;
+    /* Renamed property in CSS3 draft spec */
+}
+
+.bable2 table,
+.bable2 th,
+.bable2 td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+
+}
+
+.bable2 {
+    border: 1px solid black;
+    table-layout: fixed;
+
+
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    padding: 0 15px;
+    display: block;
+}
+
+.design-head {
+    background: #fff;
+    color: #0b3e6f;
+    font-weight: bold;
+    font-size: 24px;
+    border: 5px solid #0b3e6f;
+    width: 150px;
+    margin: auto;
+    text-align: center;
+}
+
+.para {
+    text-indent: 40px;
+    text-align: justify;
+
+}
+
+
+.aplication {
+    line-height: 20px;
+}
+
+.aplication p {
+    margin: 0px;
+}
+.certificate-titel{
+    background: #0b3e6f; 
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    display: block
+
+
+}
+

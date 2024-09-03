@@ -1,0 +1,44 @@
+.btnm-1 {
+    margin: 1px !important;
+}
+.bg-custom-2 {
+    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}
+
+.active {
+    background-image: linear-gradient(15deg, #093c59 100%, #80d0c7 0%);
+}
+.bg-custom-2 a.nav-link {
+    color: #ffffff !important;
+}
+.nav-tabs .nav-link {
+    border-right: 1px solid #ffffff !important;
+    border-radius: 0.25rem !important;
+}
+.badge {
+    border-radius: 0.5rem;
+}
+.badge-light {
+    color: #2a2e30 !important;
+    background-color: #ffffff !important;
+    margin-left: 5px;
+}
+.add_retailer {
+    text-align: end !important;
+    padding-right: 100px !important;
+}
+.tostID {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.active1 {
+    background: #727cf5 !important;
+}
+a.nav-link.active1.disabled {
+    color: #fff !important;
+}
+
+#zone_id{
+    cursor: pointer;
+}

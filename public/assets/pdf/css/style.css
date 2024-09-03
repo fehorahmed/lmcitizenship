@@ -1,0 +1,449 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,900&display=swap");
+@font-face {
+  font-family: bangla;
+  src: url(../fonts/Nikosh.ttf);
+}
+@font-face {
+  font-family: secondBangla;
+  src: url(../fonts/LiAlinurSoukhinANSIV2-Regular.ttf);
+}
+:root {
+  --primaryFont: "bangla";
+  --secondaryFont: "secondBangla";
+  --englishFont: "Roboto" sans-serif;
+  --headerBG: #ADD2CA;
+  --primaryColor: #0A3C6D;
+  --blackColor: #000000;
+}
+
+/*==============================
+Default CSS
+===============================*/
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--primaryFont);
+}
+
+p {
+  line-height: 1.8;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-family: var(--primaryFont);
+}
+
+.container {
+  width: 973px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  vertical-align: middle;
+}
+
+#printPageButton {
+  border: none;
+  margin: 15px;
+  cursor: pointer;
+  padding: 12px 35px;
+  border-radius: 5px;
+  border: 0px;
+  color: var(--blackColor);
+  background-color: #eeeeee;
+  transition: 0.5s ease-in-out;
+  box-shadow: 0px 0px 5px #eeeeee;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 99999;
+  font-size: 14px;
+  font-weight: 500;
+}
+#printPageButton:hover {
+  background-color: #252525;
+  color: #ffffff;
+}
+
+@media print {
+  #printPageButton {
+    display: none;
+  }
+  .cc-title h4{
+    text-align: center;
+  }
+}
+.header {
+  background-color: #ADD2CA;
+  padding: 10px 15px;
+  text-align: center;
+}
+.header h1 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.header h4 {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+.city-logo {
+  position: absolute;
+  top: 35px;
+  left: 50px;
+}
+.city-logo img {
+  width: 200px;
+  height: 200px;
+}
+
+/*============================
+Table Area
+============================*/
+.form-area h4 {
+  background-color: var(--primaryColor);
+  max-width: 350px;
+  color: #ffffff;
+  line-height: 1.8;
+  text-align: center;
+  padding: 12px 15px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+.citizen-app-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 80px;
+}
+.citizen-app-table td, .citizen-app-table th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--primaryFont);
+}
+.citizen-app-table .title {
+  width: 160px;
+  font-size: 14px;
+}
+
+.table-footer {
+  margin-top: 100px;
+  text-align: end;
+}
+.table-footer p {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+/*============================
+Payment Slip Area
+============================*/
+.header-2 {
+  background-color: transparent;
+}
+.header-2 h5 {
+  background-color: var(--primaryColor);
+  max-width: 350px;
+  color: #ffffff;
+  line-height: 1.8;
+  text-align: center;
+  padding: 12px 15px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+.money-slip-logo {
+  left: 0;
+}
+
+.invoice-topbar {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.invoice-topbar h5, .invoice-topbar p {
+  font-family: var(--englishFont);
+  margin: 0;
+}
+.invoice-topbar h5 {
+  margin-bottom: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+.invoice-topbar h6 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.invoice-topbar .invoice-top-right-area {
+  text-align: right;
+}
+
+.invoice-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0px;
+}
+.invoice-table td, .invoice-table th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--englishFont);
+}
+.invoice-table .total {
+  text-align: left;
+}
+
+.invoice-footer {
+  margin-top: 50px;
+}
+.invoice-footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.invoice-footer .invoice-footer-left-area h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: var(--englishFont);
+}
+.invoice-footer .invoice-footer-left-area ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.invoice-footer .invoice-footer-left-area ul li {
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.invoice-footer .invoice-paid-seal {
+  width: 400px;
+}
+.invoice-footer .invoice-paid-seal img {
+  width: 150px;
+  height: 150px;
+}
+
+/*============================
+Citizenship Certificate
+============================*/
+.main-certificate {
+  margin-top: 150px;
+}
+
+.certificate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.certificate-header p {
+  color: var(--blackColor);
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+.certificate-body p {
+  line-height: 2;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.certificate-body p span {
+  min-width: 100px;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.certificate-body .main-body::first-letter {
+  padding-left: 50px;
+}
+
+.certificate-footer {
+  margin-top: 100px;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+}
+.certificate-footer p {
+  width: 250px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.certificate-footer .cc_f1 {
+  text-align: center;
+}
+
+/*============================
+Citizenship Certificate 2
+============================*/
+.cc-body {
+  background-color: #f7f5f5;
+}
+
+.citizenship-certificate {
+  position: relative;
+  overflow: hidden;
+}
+.citizenship-certificate::before {
+  content: url("../images/lalmonirhat-powrasava.jpeg");
+  filter: opacity(0.2);
+  width: 300px;
+  height: 245px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-58%, -42%);
+  z-index: 0;
+}
+.citizenship-certificate .container {
+  position: relative;
+  z-index: 2;
+}
+.citizenship-certificate .container p {
+  font-size: 14px;
+}
+.citizenship-certificate .container h1, .citizenship-certificate .container h2, .citizenship-certificate .container h3, .citizenship-certificate .container h4, .citizenship-certificate .container h5, .citizenship-certificate .container h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.citizenship-certificate .certificate-footer {
+  margin-top: 20px;
+}
+.citizenship-certificate .certificate-footer #councilor_sign, .citizenship-certificate .certificate-footer #seal_sign {
+  width: 150px;
+  height: 50px;
+}
+
+.cc-header {
+  padding-top: 20px;
+  /* width: 800px; */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+.cc-header img {
+  max-width: 100px;
+  margin-right: 50px;
+}
+.cc-header h1 {
+  text-shadow: -2px -2px 5px #5e5e5e;
+  font-size: 42px;
+  font-weight: 500;
+  font-family: var(--secondaryFont);
+}
+
+.cc-second-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cc-second-area p {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.cc-second-area .cc-ward {
+  text-align: center;
+  margin-top: 20px;
+}
+.cc-second-area .cc-ward h5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.cc-second-area .cc-ward h5 span {
+  display: inline-block;
+  margin-left: 10px;
+  width: 50px;
+  height: 20px;
+  border: 1px solid black;
+}
+.cc-second-area .user-img {
+  text-align: center;
+}
+.cc-second-area .user-img #user_img {
+  width: 90px;
+  height: 80px;
+  margin-top: 5px;
+}
+.cc-second-area #cc_barcode {
+  width: 90px;
+  height: 80px;
+}
+
+.cc-title {
+  text-align: center;
+  margin-top: 10px;
+}
+.cc-title h4 {
+  margin: 5px auto;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--primaryFont);
+}
+.cc-title h3 {
+  margin: 0px auto 0;
+  line-height: 1;
+  font-size: 36px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+
+.cc-main-body {
+  margin-top: 30px;
+}
+.cc-main-body p {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}/*# sourceMappingURL=style.css.map */

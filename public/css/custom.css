@@ -1,0 +1,78 @@
+.trumbowyg-editor,
+.trumbowyg-textarea {
+  background: #f9f9f9;
+}
+
+form.delete_form {
+  display: inline;
+}
+
+li.treeview.menu-open > a {
+  color: #00a65a !important;
+}
+
+ul.treeview-menu > li.active > a {
+  color: yellow !important;
+}
+
+h2.cats_title {
+  border-bottom: 1px solid #3c8dbc;
+  width: 100%;
+  padding-bottom: 5px;
+  color: #3c8dbc;
+}
+
+.product_cats {
+  margin-top: 15px;
+  border: 1px solid #eee;
+  border-right: none;
+  padding: 0px 0px 0px 5px;
+}
+
+.product_cats .pre-scrollable {
+  max-height: 600px;
+}
+
+.pre-scrollable > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.table-responsive {
+  overflow-x: visible;
+}
+
+.product_cats,
+.post_cats {
+  margin-top: 15px;
+  border: 1px solid #eee;
+  border-right: none;
+  padding: 0px 0px 0px 5px;
+}
+th {
+  background: #9e5bba !important;
+  color: #ffffff !important;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+  background-color: #056137 !important;
+  padding: 10px;
+}
+
+ul.checkbox-list {
+  list-style: none;
+  padding: 10px;
+  height: 200px;
+  overflow-x: scroll;
+  border: 1px solid #d2d6de;
+}
+
+
+.dt-buttons {
+  text-align: center;
+}
+
+.paymentinfo p{
+  margin-bottom: 0;
+  font-size: 15px;
+}

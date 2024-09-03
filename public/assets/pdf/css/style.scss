@@ -1,0 +1,538 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,900&display=swap');
+@font-face {
+  font-family: bangla;
+  src: url(../fonts/Nikosh.ttf);
+}
+
+@font-face {
+  font-family: secondBangla;
+  src: url(../fonts/LiAlinurSoukhinANSIV2-Regular.ttf);
+}
+
+:root {
+  --primaryFont: 'bangla';
+  --secondaryFont: 'secondBangla';
+  --englishFont: 'Roboto' sans-serif;
+  --headerBG: #ADD2CA;
+  --primaryColor: #0A3C6D;
+  --blackColor: #000000;
+}
+
+/*==============================
+Default CSS
+===============================*/
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font: {
+    family: var(--primaryFont);
+  };
+}
+
+p {
+  line-height: 1.8;
+  margin: {
+    top: 0;
+    bottom: 0;
+  };
+  font: {
+    size: 14px;
+    family: var(--primaryFont)
+  };
+}
+
+.container {
+  width: 992px;
+  margin: {
+    left: auto;
+    right: auto;
+  };
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  vertical-align: middle;
+}
+
+#printPageButton {
+  border: none;
+  margin: 15px;
+  cursor: pointer;
+  padding: 12px 35px;
+  border-radius: 5px;
+  border: 0px;
+  color: var(--blackColor);
+  background-color: #eeeeee;
+  transition: .5s ease-in-out;
+  box-shadow: 0px 0px 5px #eeeeee;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 99999;
+  font:  {
+    size: 14px;
+    weight: 500;
+  };
+  &:hover {
+    background-color: #252525;
+    color: #ffffff;
+  }
+}
+
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+
+
+// Header Area
+.header {
+  background-color: #ADD2CA;
+  padding: 10px 15px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 12px;
+    font: {
+      size: 32px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+
+  h4 {
+    font: {
+      size: 18px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
+
+.city-logo {
+  position: absolute;
+  top: 35px;
+  left: 50px;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/*============================
+Table Area
+============================*/
+.form-area {
+  h4 {
+    background-color: var(--primaryColor);
+    max-width: 350px;
+    color: #ffffff;
+    line-height: 1.8;
+    text-align: center;
+    padding: 12px 15px 10px;
+    margin: {
+      left: auto;
+      right: auto;
+    };
+    font: {
+      size: 18px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
+
+.citizen-app-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 80px;
+  td, th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: start;
+    font: {
+      size: 16px;
+      weight: 500;
+      family: var(--primaryFont);
+    };
+  }
+
+  .title {
+    width: 160px;
+    font-size: 14px;
+  }
+}
+
+.table-footer {
+  margin-top: 100px;
+  text-align: end;
+  p {
+    font: {
+      size: 16px;
+      weight: 400;
+      family: var(--primaryFont);
+    }
+  }
+}
+
+/*============================
+Payment Slip Area
+============================*/
+.header-2 {
+  background-color: transparent;
+  h5 {
+    background-color: var(--primaryColor);
+    max-width: 350px;
+    color: #ffffff;
+    line-height: 1.8;
+    text-align: center;
+    padding: 12px 15px 10px;
+    margin: {
+      left: auto;
+      right: auto;
+    };
+    font: {
+      size: 18px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
+
+.money-slip-logo {
+  left: 0;
+}
+
+.invoice-topbar {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  h5,p {
+    font-family: var(--englishFont);
+    margin: 0;
+  }
+
+  h5 {
+    margin-bottom: 0;
+    font: {
+      size: 22px;
+      weight: 600;
+    };
+  }
+
+  h6 {
+    margin-top: 0;
+    font: {
+      size: 20px;
+      weight: 600;
+    };
+  }
+
+  .invoice-top-right-area {
+    text-align: right;
+  }
+}
+
+.invoice-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0px;
+  td, th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    font: {
+      size: 16px;
+      weight: 600;
+      family: var(--englishFont);
+    };
+  }
+  .total {
+    text-align: left;
+  }
+
+}
+
+.invoice-footer {
+  margin-top: 50px;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .invoice-footer-left-area {
+    h3 {
+      margin: 0;
+      font: {
+        size: 24px;
+        weight: 600;
+        family: var(--englishFont);
+      };
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+       li {
+        margin-top: 5px;
+        font: {
+          size: 16px;
+          weight: 400;
+          family: var(--primaryFont);
+        };
+       }
+    }
+  }
+
+  .invoice-paid-seal {
+    width: 400px;
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+}
+
+/*============================
+Citizenship Certificate
+============================*/
+.main-certificate {
+  margin-top: 150px;
+}
+.certificate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  p{
+    color: var(--blackColor);
+    font: {
+      size: 18px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
+.certificate-body {
+  p {
+    line-height: 2;
+    span {
+      min-width: 100px;
+      display: inline-block;
+      padding: {
+        left: 5px;
+        right: 5px;
+      };
+
+      font: {
+        size: 16px;
+        weight: 400;
+      }
+    }
+    font: {
+      size: 16px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+  .main-body {
+    &::first-letter {
+      padding-left: 50px;
+    }
+  }
+}
+.certificate-footer {
+  margin-top: 100px;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: {
+    left: auto;
+    right: auto;
+  };
+  p {
+    width: 250px;
+    text-align: center;
+    margin: {
+      top: 5px;
+      bottom: 0;
+    };
+    font: {
+      size: 16px;
+      weight: 400;
+      family: var(--primaryFont); 
+    };
+  }
+  .cc_f1 {
+    text-align: center;
+  }
+}
+
+/*============================
+Citizenship Certificate 2
+============================*/
+.cc-body {
+  background-color: #f7f5f5;
+}
+
+.citizenship-certificate {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: url('../images/rajshahi-city-corporation.png');
+    filter: opacity(.2);
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-58%, -42%);
+    z-index: 0;
+  }
+  .container {
+    position: relative;
+    z-index: 2;
+    p {
+      font-size: 14px;
+    }
+    h1,h2,h3,h4,h5,h6 {
+      margin: {
+        top: 0;
+        bottom: 0;
+      };
+    }
+  }
+  .certificate-footer {
+    margin-top: 20px;
+    #councilor_sign, #seal_sign {
+      width: 150px;
+      height: 50px;
+    }
+  }
+}
+
+.cc-header {
+  padding-top: 20px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  img {
+    max-width: 100px;
+    margin-right: 50px;
+  }
+
+  h1 {
+    text-shadow: -2px -2px 5px #5e5e5e;
+    font: {
+      size: 42px;
+      weight: 500;
+      family: var(--secondaryFont);
+    };
+  }
+}
+
+.cc-second-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font: {
+      size: 16px;
+      weight: 400;
+      family: var(--primaryFont)
+    };
+  }
+
+  .cc-ward {
+    text-align: center;
+    margin-top: 20px;
+    h5 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: {
+        top: 5px;
+        bottom: 5px;
+      };
+      span {
+        display: inline-block;
+        margin-left: 10px;
+        width: 50px;
+        height: 20px;
+        border: 1px solid black;
+      }
+      font: {
+        size: 18px;
+        weight: 400;
+        family: var(--primaryFont);
+      };
+    }
+  }
+
+  .user-img {
+    text-align: center;
+    #user_img {
+      width: 90px;
+      height: 80px;
+      margin-top: 5px;
+    }
+  }
+
+  #cc_barcode {
+    width: 90px;
+    height: 80px;
+  }
+}
+
+.cc-title {
+  text-align: center;
+  margin-top: 10px;
+  h4 {
+    margin: 5px auto;
+    font: {
+      size: 16px;
+      weight: 600;
+      family: var(--primaryFont);
+    };
+  }
+
+  h3 {
+    margin: 0px auto 0;
+    line-height: 1;
+    font: {
+      size:36px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
+
+.cc-main-body {
+  // text-align: center;
+  margin-top: 30px;
+  p {
+    font: {
+      size: 16px;
+      weight: 400;
+      family: var(--primaryFont);
+    };
+  }
+}
