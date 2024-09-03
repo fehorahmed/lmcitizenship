@@ -84,7 +84,7 @@
 
 
                             <li>
-                                <a href="http://esebampa.freelanceritbd.com/">হোম</a>
+                                <a href="{{route('home')}}">হোম</a>
 
 
 

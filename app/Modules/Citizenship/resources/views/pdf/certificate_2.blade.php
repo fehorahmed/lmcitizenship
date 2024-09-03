@@ -119,7 +119,7 @@
                             {{-- <p> নাম :</p> --}}
                             {{ isset($fdata->ward->bn_name) ? $fdata->ward->bn_name : $fdata->ward->name }} নং ওয়ার্ড কাউন্সিলর
                             <br>
-                            মোবাইলঃ {{ e_to_b($fdata->transactionLog->digitalAcceptBy->phone) }}<br>
+                            মোবাইলঃ <br>
                             {{ $settings->name ?? '' }}
 
                         @endif
