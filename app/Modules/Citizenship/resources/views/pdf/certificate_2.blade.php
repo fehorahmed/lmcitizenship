@@ -135,9 +135,9 @@
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($settings))
                             {{ $settings->mayor_name ?? '' }} <br>
+                            প্রশাসক <br>
                             <img src="{{ asset($settings->mayor_signature) }}" alt="" height="50px" width="200px">
                             <br>
-                            প্রশাসক সাক্ষর <br>
                             {{ $settings->name ?? '' }} <br>
                             {{ $settings->phone ?? '' }}
                         @endif

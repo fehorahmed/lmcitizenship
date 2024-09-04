@@ -221,7 +221,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.admin.edit', compact('user'));
+        $divisions = Division::all();
+        return view('admin.admin.edit', compact('user','divisions'));
     }
 
     /**
@@ -233,7 +234,45 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'nullable|string|min:6|max:20|confirmed',
+            'phone' => 'required|string|max:20',
+            'role' => 'required|numeric',
+            'division' => 'required|numeric',
+            'district' => 'required|numeric',
+            'sub_district' => 'required|numeric',
+            "signature" => 'nullable|image|mimes:jpeg,png,jpg|max:100',
+        ];
+
+        $validate = Validator::make($request->all(), $rules);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
+
+
+        $data = User::findOrFail($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        if($request->password){
+            $data->password = Hash::make($request->password);
+        }
+        $data->phone = $request->phone;
+        $data->role = $request->role;
+        $data->division_id = $request->division;
+        $data->district_id = $request->district;
+        $data->sub_district_id = $request->sub_district;
+        if ($request->hasFile('signature')) {
+            deleteFile($data->signature);
+            $dest = 'signature';
+            $path = saveImage($dest, $request->signature, 200, 50);
+            $data->signature = $path;
+        }
+        $data->save();
+
+        return redirect()->route('admin.admin.index')->with('success', 'User Successfully updated.');
     }
 
     /**

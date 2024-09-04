@@ -94,6 +94,7 @@
                                                     class="btn btn-primary btn-status-change">
                                                     Change Status
                                                 </button>
+                                                <a href="{{route('admin.admin.edit',$data->id)}}" class="btn btn-info">Edit</a>
                                             @endif
                                         </td>
 
