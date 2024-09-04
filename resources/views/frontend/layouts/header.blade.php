@@ -43,11 +43,9 @@
 
                                     <?php
 
-                                    $d = date('D F j, Y');
-                                    // $d = en2bnSomeCommonString($d);
-                                    // $d = bn2enNumber($d);
+                                    $d = date('l F j, Y');
 
-                                    echo $d;
+                                    echo e_to_b($d);
 
                                     ?>
 

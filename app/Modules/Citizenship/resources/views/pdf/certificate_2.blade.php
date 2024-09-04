@@ -138,8 +138,9 @@
                             প্রশাসক <br>
                             <img src="{{ asset($settings->mayor_signature) }}" alt="" height="50px" width="200px">
                             <br>
-                            {{ $settings->name ?? '' }} <br>
-                            {{ $settings->phone ?? '' }}
+                            মোবাইলঃ {{ e_to_b($settings->phone ?? '') }}
+                            <br>
+                            {{ $settings->name ?? '' }}
                         @endif
 
                     </td>
