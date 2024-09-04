@@ -115,7 +115,7 @@
                             <br>
                             প্রস্তুতকারী
                             <br>
-                            <img src="{{ asset($fdata->transactionLog->digitalAcceptBy->signature) }}" alt="">
+                            <img src="{{ asset($fdata->transactionLog->digitalAcceptBy->signature) }}" alt=""  height="50px" width="200px">
                             <br>
                             মোবাইলঃ {{ e_to_b($fdata->transactionLog->digitalAcceptBy->phone) }}<br>
                             {{ $settings->name ?? '' }}
@@ -135,7 +135,7 @@
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($settings))
                             {{ $settings->mayor_name ?? '' }} <br>
-                            <img src="{{ asset($settings->mayor_signature) }}" alt="">
+                            <img src="{{ asset($settings->mayor_signature) }}" alt="" height="50px" width="200px">
                             <br>
                             প্রশাসক সাক্ষর <br>
                             {{ $settings->name ?? '' }} <br>
