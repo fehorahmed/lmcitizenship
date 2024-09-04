@@ -38,12 +38,15 @@
                 <tr>
                     <td style="text-align: left; width:30%"> স্মারক নং : {{e_to_b($fdata->id)}}</td>
                     <td style="text-align: center;width:40%;">
-                        <h4>না গ রি ক ত্ব</h4>
-                        <h3>সনদপত্র</h3>
+                        স্থাপিত : {{e_to_b(1972)}}
                     </td>
                     <td style="text-align: right;width:30%;"> <p>তারিখঃ {{ e_to_b($fdata->created_at->format('d-m-Y')) }} </p> </td>
                 </tr>
             </table>
+            <div style="text-align: center;">
+                <h4>না গ রি ক ত্ব</h4>
+                <h3>সনদপত্র</h3>
+            </div>
 
 
 
