@@ -79,6 +79,7 @@ class SettingController extends Controller
             "map" => 'nullable|string|max:1000',
             "logo" => 'nullable|image',
             "banner" => 'nullable|image',
+            "mayor_name" => 'nullable|string|max:255',
             "mayor_signature" => 'nullable|image',
         ]);
         // dd($request->all());
@@ -92,6 +93,7 @@ class SettingController extends Controller
         $setting->email = $request->email;
         $setting->address = $request->address;
         $setting->map = $request->map;
+        $setting->mayor_name = $request->mayor_name;
         if ($request->logo) {
             $setting->logo =  saveImage('logo', $request->logo, 200, 80);
         }

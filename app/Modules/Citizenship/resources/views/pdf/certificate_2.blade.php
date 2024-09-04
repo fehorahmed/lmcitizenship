@@ -36,11 +36,13 @@
 
             <table style="width: 100%">
                 <tr>
-                    <td style="text-align: left; width:30%"> স্মারক নং : {{e_to_b($fdata->id)}}</td>
+                    <td style="text-align: left; width:30%"> স্মারক নং : {{ e_to_b($fdata->id) }}</td>
                     <td style="text-align: center;width:40%;">
-                        স্থাপিত : {{e_to_b(1972)}}
+                        স্থাপিত : {{ e_to_b(1972) }}
                     </td>
-                    <td style="text-align: right;width:30%;"> <p>তারিখঃ {{ e_to_b($fdata->created_at->format('d-m-Y')) }} </p> </td>
+                    <td style="text-align: right;width:30%;">
+                        <p>তারিখঃ {{ e_to_b($fdata->created_at->format('d-m-Y')) }} </p>
+                    </td>
                 </tr>
             </table>
             <div style="text-align: center;">
@@ -100,6 +102,7 @@
                 <br>
                 <br>
                 <br>
+                <br>
             </div>
 
             <table style="width: 100%">
@@ -108,34 +111,36 @@
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
 
                         @if (isset($fdata->transactionLog->digital_accept_by))
-                        {{ $fdata->transactionLog->digitalAcceptBy->name ?? '' }}
-                           <br>
-                            প্রস্তুতকারীর স্বাক্ষর ও সীল
+                            {{ $fdata->transactionLog->digitalAcceptBy->name ?? '' }}
                             <br>
-                            {{ $settings->name ?? '' }} <br>
-                            মোবাইলঃ {{ e_to_b($fdata->transactionLog->digitalAcceptBy->phone) }}
+                            প্রস্তুতকারী
+                            <br>
+                            <img src="{{ asset($fdata->transactionLog->digitalAcceptBy->signature) }}" alt="">
+                            <br>
+                            মোবাইলঃ {{ e_to_b($fdata->transactionLog->digitalAcceptBy->phone) }}<br>
+                            {{ $settings->name ?? '' }}
                         @endif
 
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($fdata->ward->name))
                             {{-- <p> নাম :</p> --}}
-                            {{ isset($fdata->ward->bn_name) ? $fdata->ward->bn_name : $fdata->ward->name }} নং ওয়ার্ড কাউন্সিলর
+                            {{ isset($fdata->ward->bn_name) ? $fdata->ward->bn_name : $fdata->ward->name }} নং ওয়ার্ড
+                            কাউন্সিলর
                             <br>
-                            মোবাইলঃ <br>
-                            {{ $settings->name ?? '' }}
 
+                            {{ $settings->name ?? '' }}
                         @endif
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($settings))
-                        <img src="{{asset($settings->mayor_signature)}}" alt="">
-                        <br>
-                        প্রশাসক সাক্ষর <br>
-                        {{ $settings->name ?? '' }} <br>
-                        {{ $settings->phone ?? '' }}
-
-                    @endif
+                            {{ $settings->mayor_name ?? '' }} <br>
+                            <img src="{{ asset($settings->mayor_signature) }}" alt="">
+                            <br>
+                            প্রশাসক সাক্ষর <br>
+                            {{ $settings->name ?? '' }} <br>
+                            {{ $settings->phone ?? '' }}
+                        @endif
 
                     </td>
                 </tr>

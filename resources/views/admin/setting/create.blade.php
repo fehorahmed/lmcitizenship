@@ -126,6 +126,18 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
+                                        <label for="mayor_name" class="col-12 col-md-3 col-form-label">Mayor Name</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="mayor_name" id="mayor_name"
+                                                value="{{ old('mayor_name', $setting->mayor_name ?? '') }}" class="form-control"
+                                                placeholder="Enter mayor name">
+                                            @error('mayor_name')
+                                                <div class="help-block text-danger">{{ $message }} </div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="row mb-3">
                                         <label for="mayor_signature" class="col-12 col-md-3 col-form-label">Mayor Signature</label>
                                         <div class="col-12 col-md-9">
                                             <input type="file" name="mayor_signature" id="mayor_signature" class="form-control">

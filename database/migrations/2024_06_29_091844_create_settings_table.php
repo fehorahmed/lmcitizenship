@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
             $table->string('mayor_signature')->nullable();
+            $table->string('mayor_name')->nullable();
             $table->text('map')->nullable();
             $table->string('headerurl')->nullable();
             $table->string('phone')->nullable();
