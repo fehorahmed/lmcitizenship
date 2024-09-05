@@ -587,6 +587,7 @@ class UserController extends Controller
             "phone" => 'required|string|unique:users,phone,' . auth()->id(),
             "email" => 'email|required|max:255|unique:users,email,' . auth()->id(),
             "father_name" => 'required|string|max:255',
+            "husband_name" => 'nullable|string|max:255',
             "mother_name" => 'required|string|max:255',
             "nidno" => 'nullable|required_without:birthcertificateno|string|max:255|unique:users,nid,' . auth()->id(),
             "nid_file" => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1000',
@@ -630,6 +631,7 @@ class UserController extends Controller
         $data->phone = $request->phone;
         $data->email = $request->email;
         $data->father_name = $request->father_name;
+        $data->husband_name = $request->husband_name;
         $data->mother_name = $request->mother_name;
         $data->nid = $request->nidno;
         // $data->passportno = $request->passportno;
