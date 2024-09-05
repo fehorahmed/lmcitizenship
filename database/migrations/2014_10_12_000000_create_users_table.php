@@ -27,14 +27,17 @@ return new class extends Migration
             $table->string('mother_name')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('nid')->nullable();
+            $table->string('nid_file')->nullable();
             $table->string('profession')->nullable();
             $table->string('designation')->nullable();
             $table->string('signature')->nullable();
             $table->boolean('freedomfighters')->nullable();
             $table->string('birth_certificate_no')->nullable();
+            $table->string('birth_certificate_file')->nullable();
             $table->string('gender')->nullable();
             $table->foreignId('religion')->nullable();
             $table->string('marital_status')->nullable();
+            $table->boolean('user_type')->default(1)->comment('স্থায়ী বাসিন্দা নাকি অস্থায়ী বাসিন্দা');
             //Present
             $table->foreignId('division_id')->nullable();
             $table->foreignId('district_id')->nullable();

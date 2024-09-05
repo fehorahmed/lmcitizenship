@@ -330,7 +330,7 @@ Citizenship Certificate 2
 }
 .citizenship-certificate::before {
   content: url("../images/lalmonirhat-powrasava.jpeg");
-  filter: opacity(0.2);
+  filter: opacity(0.1);
   width: 300px;
   height: 245px;
   position: absolute;

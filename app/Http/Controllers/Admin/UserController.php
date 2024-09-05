@@ -589,13 +589,16 @@ class UserController extends Controller
             "father_name" => 'required|string|max:255',
             "mother_name" => 'required|string|max:255',
             "nidno" => 'nullable|required_without:birthcertificateno|string|max:255|unique:users,nid,' . auth()->id(),
+            "nid_file" => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1000',
 
             "birthcertificateno" => 'nullable|required_without:nidno|string|max:255',
+            "birth_certificate_file" => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1000',
 
             "gender" => 'required|string|max:255',
             "religion" => 'required|numeric',
             "marital_status" => 'required|string|max:255',
             "birthday" => 'required|date|max:255',
+            "user_type" => 'required|boolean',
 
             "profession" => 'required|string|max:255',
             "freedomfighters" => 'required|boolean',
@@ -647,6 +650,7 @@ class UserController extends Controller
         $data->moholla_id = $request->present_moholla;
         $data->post_office_id = $request->present_post_office;
         $data->address = $request->present_address;
+        $data->user_type = $request->user_type;
 
         if ($request->same_as_present) {
             $data->per_division_id = $request->present_division;
@@ -669,23 +673,18 @@ class UserController extends Controller
         }
 
         if ($request->hasFile('photo')) {
-            // if ($user->profile_photo_path) {
-            //     Storage::delete('public/' . $user->photo);
-            // }
-            // $image = $request->file('photo');
-            // $filename = time() . '_' . $image->getClientOriginalName();
-            // //dfgdfg
-            // $imgFile = Image::make($image->getRealPath());
-            // $imgFile->resize(300, 300, function ($constraint) {
-            //     $constraint->aspectRatio();
-            // });
-            // if (!Storage::exists('public/profile')) {
-            //     Storage::makeDirectory('public/profile');
-            // }
-            // $path = public_path('storage/profile/' . $filename); // Set the desired storage path
-            // $imgFile->save($path); // Save the resized image
+
+            deleteFile($data->profile_photo_path);
+
             $data->profile_photo_path =  saveImage('profile_photo',$request->photo,300,300);
-            //$data->profile_photo_path = 'profile/' . $filename; // Store the image path in your data model or database
+        }
+        if ($request->hasFile('nid_file')) {
+            deleteFile($data->nid_file);
+            $data->nid_file =  saveImage('nid',$request->nid_file,600, 400);
+        }
+        if ($request->hasFile('birth_certificate_file')) {
+            deleteFile($data->birth_certificate_file);
+            $data->birth_certificate_file =  saveImage('nid',$request->birth_certificate_file,600, 400);
         }
         $data->save();
 

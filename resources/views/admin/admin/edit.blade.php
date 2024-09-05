@@ -14,7 +14,7 @@
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Create</a></li>
                         </ol>
                     </div>
-                    <h4 class="page-title">User Create</h4>
+                    <h4 class="page-title">User Update</h4>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="col-md-8 m-auto">
                 <div class="card">
                     <div class="card-header bg-info ">
-                        <h4 class=" text-white content-center">User Create</h4>
+                        <h4 class=" text-white content-center">User Update</h4>
                     </div>
                     <div class="card-body">
                         <form id="campaign-form" class="form-horizontal" method="post"
@@ -158,7 +158,7 @@
 
                             <div class="text-center mb-3">
                                 <a href="{{ route('admin.admin.index') }}" class="btn btn-danger">Back</a>
-                                <input type="submit" class="btn btn-primary  " value="Add User">
+                                <input type="submit" class="btn btn-primary  " value="Update User">
                             </div>
                         </form>
                     </div>
