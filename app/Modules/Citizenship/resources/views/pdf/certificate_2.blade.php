@@ -22,7 +22,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="text-align: left; width:30%"> <img
-                                src="{{ asset('assets/pdf/images/lalmonirhat-powrasava.jpeg') }}" alt="logo"></td>
+                                src="{{ asset('assets/pdf/images/lalmonirhat-powrasava.png') }}" alt="logo"></td>
                         <td style="text-align: center;width:40%;">
                             <h1>{{ $title[0] ?? '' }}</h1>
                             <h2>জেলা : {{ $title[1] ?? '' }}</h2>
@@ -37,7 +37,7 @@
 
             <table style="width: 100%">
                 <tr>
-                    <td style="text-align: left; width:30%"> লা:পৌ:স:/{{ e_to_b(\Carbon\Carbon::parse($fdata->created_at)->format('Y'))}}/{{ e_to_b($fdata->id) }}</td>
+                    <td style="text-align: left; width:30%"> স্মারক নং- লা:পৌ:স:/{{ e_to_b(\Carbon\Carbon::parse($fdata->created_at)->format('Y'))}}/{{ e_to_b($fdata->id) }}</td>
                     <td style="text-align: center;width:40%;">
 
                     </td>

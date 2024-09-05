@@ -329,7 +329,7 @@ Citizenship Certificate 2
   overflow: hidden;
 }
 .citizenship-certificate::before {
-  content: url("../images/lalmonirhat-powrasava.jpeg");
+  content: url("../images/lalmonirhat-powrasava.png");
   filter: opacity(0.1);
   width: 300px;
   height: 245px;
