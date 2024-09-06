@@ -19,26 +19,27 @@
                         </div>
 
                         <div class="form-group {{ $errors->has('father') ? ' has-error' : '' }}">
-                            <label for="father" class="father cmmone-class">স্বামী/পিতার নামঃ </label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <label style="margin-bottom:0"><input type="radio" name="type" value="Father">
-                                        পিতা</label>
-                                </div>
-                                <div class="input-group-addon">
-                                    <label style="margin-bottom:0"><input type="radio" name="type" value="Husband">
-                                        স্বামী</label>
-                                </div>
+                            <label for="father" class="father cmmone-class">পিতার নামঃ </label>
+
                                 <input type="text" class="form-control" name="father" id="father"
                                     value="{{  $user->father_name  }}" readonly
                                     placeholder="পিতার নাম...">
 
-                            </div>
+
                             @if ($errors->has('father'))
                                 <span id="helpBlock2" class="help-block">{{ $errors->first('father') }}</span>
                             @endif
                         </div>
 
+                        <div class="form-group {{ $errors->has('mother') ? ' has-error' : '' }}">
+                            <label for="mother" class="mother cmmone-class">স্বামী নামঃ</label>
+                            <input type="text" class="form-control" name="mother" id="mother" readonly
+                                value="{{ $user->mother_name }}" placeholder="মাতার নাম...">
+
+                            @if ($errors->has('mother'))
+                                <span id="helpBlock2" class="help-block">{{ $errors->first('mother') }}</span>
+                            @endif
+                        </div>
                         <div class="form-group {{ $errors->has('mother') ? ' has-error' : '' }}">
                             <label for="mother" class="mother cmmone-class">মাতার নামঃ</label>
                             <input type="text" class="form-control" name="mother" id="mother" readonly
