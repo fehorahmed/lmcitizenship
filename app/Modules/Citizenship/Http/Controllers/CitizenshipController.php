@@ -81,17 +81,17 @@ class CitizenshipController extends Controller
         $rules = CitizenshipSetting::first();
 
         $setting = CitizenshipSetting::first();
-        if($setting){
-          $keysArray=  json_decode($setting->profiel_require);
-          $dataArray=profile_field();
-          $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
-          foreach($resultArray as $item){
-            // dd($item['key']);
-            $field=$item['key'];
-            if(auth()->user()->$field == null || auth()->user()->$field == ''){
-                return redirect()->route('user.profile.edit')->with('swal_error','Please update your profile. '.$item['Name']);
+        if ($setting) {
+            $keysArray =  json_decode($setting->profiel_require);
+            $dataArray = profile_field();
+            $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
+            foreach ($resultArray as $item) {
+                // dd($item['key']);
+                $field = $item['key'];
+                if (auth()->user()->$field == null || auth()->user()->$field == '') {
+                    return redirect()->route('user.profile.edit')->with('swal_error', 'Please update your profile. ' . $item['Name']);
+                }
             }
-          }
         }
 
 
@@ -152,7 +152,7 @@ class CitizenshipController extends Controller
             'name' => $user->name,
 
             'father' => $user->father_name,
-            'husband' =>  null,
+            'husband' =>  $user->husband_name ?? null,
             'mother' =>   $user->mother_name,
             'bc_no' =>  $user->birth_certificate_no ?? null,
             'nid' =>  $user->nid,
@@ -189,11 +189,12 @@ class CitizenshipController extends Controller
         try {
             $done =  Citizenship::create($attributes);
             if ($done) {
-               // DB::rollBack();
-               // dd('in');
+                // DB::rollBack();
+                // dd('in');
                 $tr_log = new TransactionLog();
                 $tr_log->payment_type = 'CITIZENSHIP';
                 $tr_log->user_id = auth()->id();
+                $tr_log->date =$request->payment_info['date'];
                 $tr_log->payment_info = json_encode($request->payment_info);
                 $tr_log->amount = $request->payment_info['total'];
                 $tr_log->citizenship_id = $done->id;
@@ -203,8 +204,8 @@ class CitizenshipController extends Controller
                 }
             } else {
 
-               // DB::rollBack();
-               // dd('out');
+                // DB::rollBack();
+                // dd('out');
                 $transactionFail = true;
             }
             if ($transactionFail) {
@@ -359,11 +360,10 @@ class CitizenshipController extends Controller
         // $data['fdata'] = $citizen;
         // $data['settings'] = $settings;
         // $data['rules'] = $rules;
-        $qr_code= QrCode::generate(
+        $qr_code = QrCode::generate(
             'Hello, World!',
         );
-       return view('Citizenship::pdf.certificate_2',compact('fdata','settings','rules','qr_code'));
-
+        return view('Citizenship::pdf.certificate_2', compact('fdata', 'settings', 'rules', 'qr_code'));
     }
 
     public function adminDetails($id)
@@ -374,14 +374,14 @@ class CitizenshipController extends Controller
     }
     public function makePayment()
     {
-        $users = User::where('role',1)->get();
+        $users = User::where('role', 1)->get();
         $citizen_setting = CitizenshipSetting::first();
-        return view("Citizenship::admin.make_payment", compact('users','citizen_setting'));
+        return view("Citizenship::admin.make_payment", compact('users', 'citizen_setting'));
     }
     public function makePaymentStore(Request $request)
     {
         $rules = [
-            'user'=>'required|numeric',
+            'user' => 'required|numeric',
             'payment_info.payment_method' => 'required|string',
             'payment_info.rate' => 'required|numeric',
             'payment_info.dc_rate' => 'required|numeric',
@@ -414,23 +414,23 @@ class CitizenshipController extends Controller
 
         $setting = CitizenshipSetting::first();
         $user = User::findOrFail($request->user);
-        if($setting){
-          $keysArray=  json_decode($setting->profiel_require);
-          $dataArray=profile_field();
-          $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
-          foreach($resultArray as $item){
-            // dd($item['key']);
-            $field=$item['key'];
-            if($user->$field == null || $user->$field == ''){
+        if ($setting) {
+            $keysArray =  json_decode($setting->profiel_require);
+            $dataArray = profile_field();
+            $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
+            foreach ($resultArray as $item) {
+                // dd($item['key']);
+                $field = $item['key'];
+                if ($user->$field == null || $user->$field == '') {
 
-                return redirect()->back()->withInput()->with('error','Please update your profile. '.$item['Name']);
+                    return redirect()->back()->withInput()->with('error', 'Please update your profile. ' . $item['Name']);
+                }
             }
-          }
         }
 
-        $citizen = Citizenship::where('user_id',$request->user)->first();
+        $citizen = Citizenship::where('user_id', $request->user)->first();
         if ($citizen) {
-            return redirect()->back()->withInput()->with('error','Already have a certificate..');
+            return redirect()->back()->withInput()->with('error', 'Already have a certificate..');
         }
 
 
@@ -476,6 +476,7 @@ class CitizenshipController extends Controller
                 $tr_log = new TransactionLog();
                 $tr_log->payment_type = 'CITIZENSHIP';
                 $tr_log->user_id = auth()->id();
+                $tr_log->date =$request->payment_info['date'];
                 $tr_log->payment_info = json_encode($request->payment_info);
                 $tr_log->amount = $request->payment_info['total'];
                 $tr_log->citizenship_id = $done->id;
@@ -494,9 +495,6 @@ class CitizenshipController extends Controller
         } catch (\Illuminate\Database\QueryException $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
-
-
-
     }
     public function changeStatus(Request $request)
     {
@@ -540,36 +538,34 @@ class CitizenshipController extends Controller
 
         $setting = CitizenshipSetting::first();
         $user = User::findOrFail($request->user_id);
-        if($setting){
-          $keysArray=  json_decode($setting->profiel_require);
-          $dataArray=profile_field();
-          $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
-          foreach($resultArray as $item){
-            // dd($item['key']);
-            $field=$item['key'];
-            if($user->$field == null || $user->$field == ''){
-                return response([
-                    'status' => true,
-                    'message' => 'Please update your profile. '.$item['Name']
-                ]);
-
+        if ($setting) {
+            $keysArray =  json_decode($setting->profiel_require);
+            $dataArray = profile_field();
+            $resultArray = array_intersect_key($dataArray, array_flip($keysArray));
+            foreach ($resultArray as $item) {
+                // dd($item['key']);
+                $field = $item['key'];
+                if ($user->$field == null || $user->$field == '') {
+                    return response([
+                        'status' => true,
+                        'message' => 'Please update your profile. ' . $item['Name']
+                    ]);
+                }
             }
-          }
         }
 
-        $citizen = Citizenship::where('user_id',$request->user_id)->first();
+        $citizen = Citizenship::where('user_id', $request->user_id)->first();
 
         if ($citizen) {
             return response([
                 'status' => true,
                 'message' => 'Already have a certificate..'
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
                 'message' => 'You can apply.'
             ]);
         }
-
     }
 }

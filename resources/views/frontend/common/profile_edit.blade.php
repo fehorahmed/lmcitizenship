@@ -190,6 +190,7 @@
                                             value="{{ $user->yearly_income ?? '' }}">
                                     </div>
                                 </div> --}}
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="profession" class="profession cmmone-class">পেশা
@@ -198,80 +199,85 @@
                                             placeholder="পেশা " value="{{ $user->profession ?? '' }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="cmmone-class">আপনি কি মুক্তিযোদ্ধার সন্তান?</label>
-                                        <span style="padding:10px;">
-                                            <label class="radio-inline"><input type="radio" name="freedomfighters"
-                                                    value="1"
-                                                    {{ $user->freedomfighters == 1 ? 'checked' : '' }}>হ্যাঁ</label>
-                                            <label class="radio-inline"><input type="radio" name="freedomfighters"
-                                                    value="0"
-                                                    {{ $user->freedomfighters == 0 ? 'checked' : '' }}>না</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="cmmone-class">স্থায়ী বাসিন্দা নাকি অস্থায়ী বাসিন্দা ?</label>
-                                        <span style="padding:10px;">
-                                            <label class="radio-inline"><input type="radio" name="user_type"
-                                                    value="1"
-                                                    {{ $user->user_type == 1 ? 'checked' : '' }}>স্থায়ী বাসিন্দা</label>
-                                            <label class="radio-inline"><input type="radio" name="user_type"
-                                                    value="0"
-                                                    {{ $user->user_type == 0 ? 'checked' : '' }}>অস্থায়ী বাসিন্দা</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nidno" class="nidno cmmone-class">জাতীয় পরিচয় পত্র</label>
-                                        <input type="text" class="form-control" name="nidno" id="nidno"
-                                            placeholder="National ID" value="{{ old('nidno',$user->nid) }}">
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="birthcertificateno" class="birthcertificateno cmmone-class">জন্ম সার্টিফিকেট নং
-                                        </label>
-                                        <input type="text" class="form-control" name="birthcertificateno"
-                                            id="birthcertificateno" placeholder="Birth Certificate No "
-                                            value="{{ old('birthcertificateno',$user->birth_certificate_no) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nid_file" class="nid_file cmmone-class">জাতীয় পরিচয় পত্র ছবি
-                                        </label>
-                                       <input type="file" name="nid_file" class="form-control" id="nid_file">
-                                    </div>
-                                    @if (!empty($user->nid_file))
-                                        <div class="form-group">
-                                            <div class="ar-profile" style="max-height:80px;max-width:100px;">
-                                                <img src="{{ asset($user->nid_file) }}"
-                                                    class="img-thumbnail">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="cmmone-class">আপনি কি মুক্তিযোদ্ধার সন্তান?</label>
+                                                <span style="padding:10px;">
+                                                    <label class="radio-inline"><input type="radio" name="freedomfighters"
+                                                            value="1"
+                                                            {{ $user->freedomfighters == 1 ? 'checked' : '' }}>হ্যাঁ</label>
+                                                    <label class="radio-inline"><input type="radio" name="freedomfighters"
+                                                            value="0"
+                                                            {{ $user->freedomfighters == 0 ? 'checked' : '' }}>না</label>
+                                                </span>
                                             </div>
                                         </div>
-                                    @endif
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="birth_certificate_file" class="birth_certificate_file cmmone-class">জন্ম সার্টিফিকেট ছবি
-                                        </label>
-                                       <input type="file" name="birth_certificate_file" class="form-control" id="birth_certificate_file">
-                                    </div>
-                                    @if (!empty($user->birth_certificate_file))
-                                        <div class="form-group">
-                                            <div class="ar-profile" style="max-height:80px;max-width:100px;">
-                                                <img src="{{ asset($user->birth_certificate_file) }}"
-                                                    class="img-thumbnail">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="cmmone-class">স্থায়ী বাসিন্দা নাকি অস্থায়ী বাসিন্দা ?</label>
+                                                <span style="padding:10px;">
+                                                    <label class="radio-inline"><input type="radio" name="user_type"
+                                                            value="1"
+                                                            {{ $user->user_type == 1 ? 'checked' : '' }}>স্থায়ী বাসিন্দা</label>
+                                                    <label class="radio-inline"><input type="radio" name="user_type"
+                                                            value="0"
+                                                            {{ $user->user_type == 0 ? 'checked' : '' }}>অস্থায়ী বাসিন্দা</label>
+                                                </span>
                                             </div>
                                         </div>
-                                    @endif
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nidno" class="nidno cmmone-class">জাতীয় পরিচয় পত্র</label>
+                                                <input type="text" class="form-control" name="nidno" id="nidno"
+                                                    placeholder="National ID" value="{{ old('nidno',$user->nid) }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="birthcertificateno" class="birthcertificateno cmmone-class">জন্ম সার্টিফিকেট নং
+                                                </label>
+                                                <input type="text" class="form-control" name="birthcertificateno"
+                                                    id="birthcertificateno" placeholder="Birth Certificate No "
+                                                    value="{{ old('birthcertificateno',$user->birth_certificate_no) }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nid_file" class="nid_file cmmone-class">জাতীয় পরিচয় পত্র ছবি
+                                                </label>
+                                               <input type="file" name="nid_file" class="form-control" id="nid_file">
+                                            </div>
+                                            @if (!empty($user->nid_file))
+                                                <div class="form-group">
+                                                    <div class="ar-profile" style="max-height:80px;max-width:100px;">
+                                                        <img src="{{ asset($user->nid_file) }}"
+                                                            class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="birth_certificate_file" class="birth_certificate_file cmmone-class">জন্ম সার্টিফিকেট ছবি
+                                                </label>
+                                               <input type="file" name="birth_certificate_file" class="form-control" id="birth_certificate_file">
+                                            </div>
+                                            @if (!empty($user->birth_certificate_file))
+                                                <div class="form-group">
+                                                    <div class="ar-profile" style="max-height:80px;max-width:100px;">
+                                                        <img src="{{ asset($user->birth_certificate_file) }}"
+                                                            class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="photo" class="picture cmmone-class">ছবি
                                         </label>
@@ -287,7 +293,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>

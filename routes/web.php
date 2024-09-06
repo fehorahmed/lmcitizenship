@@ -13,6 +13,7 @@ use App\Http\Controllers\MohollaController;
 use App\Http\Controllers\PostOfficeController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TransactionLogController;
 use App\Http\Controllers\UnionController;
 use App\Http\Controllers\WardController;
 
@@ -98,7 +99,7 @@ Route::group(['middleware' => ['auth:web', 'admin.check'], 'prefix' => 'admin'],
         Route::post('{homeContact}/edit', [HomeContactController::class, 'update'])->name('admin.front-contact.update');
     });
 
-
+    Route::get('/account-details', [TransactionLogController::class, 'accountDetail'])->name('admin.account-detail');
     Route::group(['prefix' => 'configure'], function () {
 
         Route::group(['prefix' => 'profession'], function () {

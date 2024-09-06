@@ -405,6 +405,7 @@ class WarishController extends Controller
                 $tr_log = new TransactionLog();
                 $tr_log->payment_type = 'WARISH';
                 $tr_log->user_id = auth()->id();
+                $tr_log->date =$request->payment_info['date'];
                 $tr_log->payment_info = json_encode($request->payment_info);
                 $tr_log->amount = $request->payment_info['total'];
                 $tr_log->warish_application_id = $warish_app->id;
@@ -766,6 +767,7 @@ class WarishController extends Controller
             if ($done) {
                 $tr_log = new TransactionLog();
                 $tr_log->payment_type = 'CITIZENSHIP';
+                $tr_log->date =$request->payment_info['date'];
                 $tr_log->user_id = auth()->id();
                 $tr_log->payment_info = json_encode($request->payment_info);
                 $tr_log->amount = $request->payment_info['total'];

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
 
             $table->string('father_name')->nullable();
+            $table->string('husband_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('nid')->nullable();

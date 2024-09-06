@@ -116,13 +116,13 @@
                     </ul>
                 </div>
             </li>
-            {{-- <li class="side-nav-item">
-                <a href="{{ route('admin.registration.index') }}" class="side-nav-link">
+            <li class="side-nav-item">
+                <a href="{{ route('admin.account-detail') }}" class="side-nav-link">
                     <i class="uil-calender"></i>
-                    <span>Registration List </span>
+                    <span> Accounts </span>
                 </a>
 
-            </li> --}}
+            </li>
 
 
             <li class="side-nav-title side-nav-item">Configuration</li>

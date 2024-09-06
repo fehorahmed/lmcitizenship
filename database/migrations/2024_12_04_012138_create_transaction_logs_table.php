@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('payment_type',['CITIZENSHIP','WARISH']);
             $table->text('payment_info');
             $table->unsignedFloat('amount',8,2)->default(0);
+            $table->date('date');
             $table->foreignId('user_id');
             $table->foreignId('citizenship_id')->nullable();
             $table->foreignId('warish_application_id')->nullable();
