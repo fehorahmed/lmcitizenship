@@ -68,10 +68,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="father_name" class="father_name cmmone-class"> স্বামীর
+                                            <label for="husband_name" class="husband_name cmmone-class"> স্বামীর
                                                 নাম</label>
-                                            <input type="text" class="form-control" name="father_name" id="father_name"
-                                                placeholder="পিতার নাম" value="{{ old('father_name',$user->father_name) }}">
+                                            <input type="text" class="form-control" name="husband_name" id="husband_name"
+                                                placeholder="স্বামীর নাম" value="{{ old('husband_name',$user->husband_name) }}">
                                         </div>
                                     </div>
                                 </div>
