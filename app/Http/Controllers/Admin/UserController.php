@@ -868,7 +868,7 @@ class UserController extends Controller
         // dd($model);
         try {
 
-            TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_accept_by' => auth()->user()->id]);
+            TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_status' => 1, 'digital_accept_by' => auth()->user()->id]);
 
             Citizenship::where('id', $data->citizenship_id)->update(['digital_status' => 1]);
 

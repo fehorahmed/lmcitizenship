@@ -43,9 +43,9 @@
                                         id="change-status-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Change status
                                     </button>
-                                    <a href="{{ route('citizenship.pdf.certificate', $fdata->id) }}" class="btn btn-danger"
+                                    <a href="{{ route('citizenship.pdf.aplication', $fdata->id) }}" class="btn btn-danger"
                                         target="_blank">
-                                        <i class="fa fa-print" aria-hidden="true"></i> Certificate</a>
+                                        <i class="fa fa-print" aria-hidden="true"></i> Application</a>
                                     <a href="{{ route('citizenship.pdf.certificate_2', $fdata->id) }}" class="btn btn-info"
                                         target="_blank">
                                         <i class="fa fa-print" aria-hidden="true"></i> Certificate 2</a>
@@ -268,7 +268,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    @if ($fdata->status == 'Approved')
+                                    @if ($fdata->transactionLog->is_active == 'Yes')
                                         <img src="{{ asset('img/paid.png') }}" style="width: 100px;">
                                     @else
                                         <img src="{{ asset('img/pending.png') }}" style="width: 100px;">

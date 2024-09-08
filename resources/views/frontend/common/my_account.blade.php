@@ -169,6 +169,7 @@
                 <div class="jumbotron">
                     <div class="row">
                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+
                             <div class="man-service_one">
                                 <div class="lang_enbn">
                                     <a class="btn btn-xs Bn_lang" target="_blank" href="{{ route('user.citizenship') }}"
@@ -180,21 +181,20 @@
                                     </a>
 
                                 </div>
-
                                 <a target="_blank" href="{{ route('user.citizenship') }}" target="_blank">
 
-                                    <img src="{{ url('public/icons/profile.png') }}">
+                                    <img src="{{ asset('icons/citizenship_logo.png') }}">
 
                                 </a>
+                                <a target="_blank" href="{{ route('user.citizenship') }}" target="_blank">
 
-                                <a target="_blank" href="{{ route('user.citizenship') }}">
                                     <h1>
                                         নাগরিকত্ব সনদ
                                     </h1>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        {{-- <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="man-service_one">
                                 <div class="lang_enbn">
                                     <a class="btn btn-xs Bn_lang" target="_blank" href="{{ route('user.warish') }}"
@@ -219,7 +219,7 @@
                                     </h1>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- Citizenship Button  --}}
 
                         @if (function_exists('luova_citizenship'))
