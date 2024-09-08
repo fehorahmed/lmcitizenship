@@ -9,6 +9,8 @@ Route::group(['middleware' => ['auth:web', 'admin.check'], 'prefix' => 'admin'],
 
     Route::group(['prefix' => 'citizenship'], function () {
         Route::get('/', [CitizenshipController::class, 'index'])->name('admin.citizenship.index');
+        Route::get('/approved', [CitizenshipController::class, 'approvedIndex'])->name('admin.citizenship.approved');
+        Route::get('/pending', [CitizenshipController::class, 'pendingIndex'])->name('admin.citizenship.pending');
         Route::get('/setting', [CitizenshipController::class, 'setting'])->name('admin.citizenship.setting');
         Route::post('/setting', [CitizenshipController::class, 'settingUpdate']);
         Route::get('{id}/details', [CitizenshipController::class, 'adminDetails'])->name('admin.citizenship.details');

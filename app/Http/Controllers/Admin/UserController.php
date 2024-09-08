@@ -222,7 +222,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $divisions = Division::all();
-        return view('admin.admin.edit', compact('user','divisions'));
+        return view('admin.admin.edit', compact('user', 'divisions'));
     }
 
     /**
@@ -236,7 +236,7 @@ class UserController extends Controller
     {
         $rules = [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6|max:20|confirmed',
             'phone' => 'required|string|max:20',
             'role' => 'required|numeric',
@@ -256,7 +256,7 @@ class UserController extends Controller
         $data = User::findOrFail($id);
         $data->name = $request->name;
         $data->email = $request->email;
-        if($request->password){
+        if ($request->password) {
             $data->password = Hash::make($request->password);
         }
         $data->phone = $request->phone;
@@ -678,15 +678,15 @@ class UserController extends Controller
 
             deleteFile($data->profile_photo_path);
 
-            $data->profile_photo_path =  saveImage('profile_photo',$request->photo,300,300);
+            $data->profile_photo_path =  saveImage('profile_photo', $request->photo, 300, 300);
         }
         if ($request->hasFile('nid_file')) {
             deleteFile($data->nid_file);
-            $data->nid_file =  saveImage('nid',$request->nid_file,600, 400);
+            $data->nid_file =  saveImage('nid', $request->nid_file, 600, 400);
         }
         if ($request->hasFile('birth_certificate_file')) {
             deleteFile($data->birth_certificate_file);
-            $data->birth_certificate_file =  saveImage('nid',$request->birth_certificate_file,600, 400);
+            $data->birth_certificate_file =  saveImage('nid', $request->birth_certificate_file, 600, 400);
         }
         $data->save();
 
@@ -852,7 +852,7 @@ class UserController extends Controller
             $mpdf->WriteHTML(view('frontend.pdf.pending_payment_view',  $data));
             $mpdf->Output("pending_payment_view.pdf", 'I');
 
-        //    $pdf = PDF::loadView('frontend.pdf.pending_payment_view',  $data, [], $config);
+            //    $pdf = PDF::loadView('frontend.pdf.pending_payment_view',  $data, [], $config);
 
         } else {
 
@@ -875,13 +875,70 @@ class UserController extends Controller
 
 
             return redirect()->back()->with('success', 'Successfully save changed');
-
         } catch (\Illuminate\Database\QueryException $ex) {
 
             return redirect()->back()->withErrors($ex->getMessage());
-
         }
-
     }
 
+
+    public function income_statement(Request $request)
+
+    {
+
+        $setting = Setting::first();
+
+
+        $user = Auth::user();
+        $query = TransactionLog::where('is_active', 'Yes');
+        if ($request->service) {
+            $query->where('payment_type', $request->service);
+        }
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        if ($request->Download) {
+            // dd($request->all());
+            $settings = Setting::first();
+            $data['datas'] =  $datas = $query->orderBy('id', 'DESC')->get();
+            $data['settings'] = $settings;
+            // $data['rules'] = $rules;
+
+            //Mpdf
+            $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+            $fontDirs = $defaultConfig['fontDir'];
+
+            $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+            $fontData = $defaultFontConfig['fontdata'];
+
+            $mpdf = new \Mpdf\Mpdf([
+                'fontDir' => array_merge($fontDirs, [
+                    public_path('fonts'),
+                ]),
+                'fontdata' => $fontData + [ // lowercase letters only in font key
+                    'solaimanlipi' => [
+                        'R' => 'SolaimanLipi12.ttf',
+                        'useOTL' => 0xFF,
+                    ]
+                ],
+                'default_font' => 'solaimanlipi',
+                // 'orientation' => 'L',
+                // 'margin_top' => 0,
+                // 'margin_left' => 0,
+                // 'margin_right' => 0,
+                'mirrorMargins' => true
+            ]);
+            $mpdf->WriteHTML(view('admin.pdf.payments',  $data));
+            $mpdf->Output("payments.pdf", 'D');
+        }
+
+
+        $datas = $query->orderBy('id', 'DESC')->paginate(20);
+
+
+
+
+        return view('frontend.common.income_statement', compact('datas', 'user', 'setting'));
+    }
 }

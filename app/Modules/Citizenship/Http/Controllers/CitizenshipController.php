@@ -31,6 +31,16 @@ class CitizenshipController extends Controller
         $citizenships = Citizenship::paginate();
         return view("Citizenship::admin.index", compact('citizenships'));
     }
+    public function approvedIndex()
+    {
+        $citizenships = Citizenship::where('status','Approved')->paginate();
+        return view("Citizenship::admin.index", compact('citizenships'));
+    }
+    public function pendingIndex()
+    {
+        $citizenships = Citizenship::where('status','Pending')->paginate();
+        return view("Citizenship::admin.index", compact('citizenships'));
+    }
 
     public function setting()
     {
@@ -112,7 +122,7 @@ class CitizenshipController extends Controller
     }
     public function citizenshipPayment(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->all());
         $rules = [
             'payment_info.payment_method' => 'required|string',
             'payment_info.rate' => 'required|numeric',
@@ -123,13 +133,13 @@ class CitizenshipController extends Controller
 
         ];
 
-        if ($request->payment_info['payment_method'] == "Cash" || $request->payment_info['payment_method'] == "Bkash") {
+        if ($request->payment_info['payment_method'] == "Cash" ) {
             $rules['payment_info.receipt_no'] = 'required|string|max:255';
             $rules['payment_info.serial_no'] = 'required|numeric';
         }
-        if ($request->payment_info['payment_method'] == "Nagat") {
+        if ($request->payment_info['payment_method'] == "Nagat" || $request->payment_info['payment_method'] == "Bkash") {
             $rules['payment_info.number'] = 'required|string|max:255';
-            $rules['payment_info.tid'] = 'required|numeric';
+            $rules['payment_info.tid'] = 'required|string';
         }
         if ($request->payment_info['payment_method'] == "Bank draft") {
             $rules['payment_info.payorder'] = 'required|string|max:255';
@@ -152,6 +162,7 @@ class CitizenshipController extends Controller
             'name' => $user->name,
 
             'father' => $user->father_name,
+            'user_type' => $user->user_type,
             'husband' =>  $user->husband_name ?? null,
             'mother' =>   $user->mother_name,
             'bc_no' =>  $user->birth_certificate_no ?? null,

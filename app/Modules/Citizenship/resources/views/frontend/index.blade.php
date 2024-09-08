@@ -61,7 +61,9 @@
                                 <td> সনদ ডাউনলোড </td>
                                 <td>
                                     @if ($item->status == 'Approved')
-                                        <a href="{{ route('citizenship.pdf.certificate', $item->id) }}" class="btn btn-danger"
+                                        {{-- <a href="{{ route('citizenship.pdf.certificate', $item->id) }}" class="btn btn-danger"
+                                            target="_blank"> --}}
+                                        <a href="{{ route('citizenship.pdf.certificate_2', $item->id) }}" class="btn btn-danger"
                                             target="_blank">
                                             <i class="fa fa-print" aria-hidden="true"></i> Certificate</a>
                                     @endif

@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::get('/pending_payment_view/{id}', [UserController::class, 'pending_payment_view'])->name('digital.pending_payment_view');
     Route::get('/payment_aprove/{id}', [UserController::class, 'payment_aprove'])->name('digital.payment_aprove');
 
-
+    Route::get('/income_statement', [UserController::class, 'income_statement'])->name('digital.income_statement');
 
 
 });

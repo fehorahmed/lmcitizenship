@@ -43,12 +43,12 @@
                                         id="change-status-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Change status
                                     </button>
-                                        <a href="{{ route('citizenship.pdf.certificate', $fdata->id) }}"
-                                            class="btn btn-danger" target="_blank">
-                                            <i class="fa fa-print" aria-hidden="true"></i> Certificate</a>
-                                        <a href="{{ route('citizenship.pdf.certificate_2', $fdata->id) }}"
-                                            class="btn btn-info" target="_blank">
-                                            <i class="fa fa-print" aria-hidden="true"></i> Certificate 2</a>
+                                    <a href="{{ route('citizenship.pdf.certificate', $fdata->id) }}" class="btn btn-danger"
+                                        target="_blank">
+                                        <i class="fa fa-print" aria-hidden="true"></i> Certificate</a>
+                                    <a href="{{ route('citizenship.pdf.certificate_2', $fdata->id) }}" class="btn btn-info"
+                                        target="_blank">
+                                        <i class="fa fa-print" aria-hidden="true"></i> Certificate 2</a>
                                 </div>
                             </div>
                         </div>
@@ -93,18 +93,22 @@
                                     <td>জাতীয় পরিচয় পত্র নং</td>
                                     <td>{{ $fdata->nid }}</td>
                                 </tr>
-                                @if ($fdata->nid_info)
-                                <tr>
-                                    <td colspan="2">Given জন্ম নিবন্ধন / জাতীয় পরিচয় পত্র নং </td>
-                                    <td colspan="2">{{ $fdata->nid_info }}</td>
-                                </tr>
-                                @endif
-                                @if ($fdata->nid_file)
-                                <tr>
-                                    <td colspan="4">
-                                        <p>Upload Document</p>
-                                       <a href="{{asset($fdata->nid_file)}}" target="_blank"> <img src="{{asset($fdata->nid_file)}}" alt="" width="150" height="80"> </a></td>
-                                </tr>
+
+                                @if ($fdata->user->nid_file || $fdata->user->birth_certificate_file)
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>NID Document</p>
+                                            <a href="{{ asset($fdata->user->nid_file) }}" target="_blank"> <img
+                                                    src="{{ asset($fdata->user->nid_file) }}" alt="" width="150"
+                                                    height="80"> </a>
+                                        </td>
+                                        <td colspan="2">
+                                            <p>Birth Certificate Document</p>
+                                            <a href="{{ asset($fdata->user->birth_certificate_file) }}" target="_blank"> <img
+                                                    src="{{ asset($fdata->user->birth_certificate_file) }}" alt="" width="150"
+                                                    height="80"> </a>
+                                        </td>
+                                    </tr>
                                 @endif
 
 
@@ -120,9 +124,9 @@
                         <h3 class="box-title box-success" style="display: block;">
 
 
-                            <a href="{{ route('admin.citizenship.index') }}" class="btn btn-danger">
+                            {{-- <a href="{{ route('admin.citizenship.index') }}" class="btn btn-danger">
                                 back
-                            </a>
+                            </a> --}}
                             <a href="{{ route('citizenship.pdf.payment', $fdata->id) }}" target="_blank"
                                 class="btn btn-danger pull-right">
                                 <i class="fa fa-print" aria-hidden="true"></i> Print
@@ -147,7 +151,7 @@
 
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <h2>INVOICE {{ 'WR-' . $fdata->id }}</h2>
+                                    <h2>INVOICE {{ 'LM-' . $fdata->id }}</h2>
                                     <div class="date">Date of Invoice: {{ date('d/m/Y', strtotime($fdata->created_at)) }}
                                     </div>
 
@@ -265,9 +269,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($fdata->status == 'Approved')
-                                        <img src="{{ asset('public/img/paid.png') }}" style="width: 100px;">
+                                        <img src="{{ asset('img/paid.png') }}" style="width: 100px;">
                                     @else
-                                        <img src="{{ asset('public/img/pending.png') }}" style="width: 100px;">
+                                        <img src="{{ asset('img/pending.png') }}" style="width: 100px;">
                                     @endif
                                 </div>
 

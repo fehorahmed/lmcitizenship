@@ -84,8 +84,14 @@
                 </a>
                 <div class="collapse" id="sidebarDashboards">
                     <ul class="side-nav-second-level">
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('admin.citizenship.index') }}">All List</a>
+                        </li> --}}
+                        <li>
+                            <a href="{{ route('admin.citizenship.approved') }}">All Approved List  <span class="badge bg-info text-white float-end">{{totalApprovedCitizenship()}}</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.citizenship.pending') }}">All Pending List  <span class="badge bg-info text-white float-end">{{totalPendingCitizenship()}}</span></a>
                         </li>
                         <li>
                             <a href="{{ route('admin.citizenship.setting') }}">Setting</a>

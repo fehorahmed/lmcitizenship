@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('mother')->nullable();
             $table->string('bc_no')->nullable();
             $table->string('nid')->nullable();
+            $table->boolean('user_type')->default(1)->comment('স্থায়ী বাসিন্দা নাকি অস্থায়ী বাসিন্দা');
 
             $table->foreignId('division_id')->nullable();
             $table->foreignId('district_id')->nullable();

@@ -15,7 +15,10 @@
                         </div>
                         <div class="text-info text-center mt-2">
                             <h1>
-                                <?php $total_today = \App\Payment::where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->where('digi_center_user_id', Auth::user()->id)->get()->sum('amount'); ?>
+                                <?php $total_today = \App\Models\TransactionLog::where('created_at', '>=', date('Y-m-d') . ' 00:00:00')
+                                    ->where('digital_accept_by', Auth::user()->id)
+                                    ->get()
+                                    ->sum('amount'); ?>
                                 {{ $total_today }}
                             </h1>
                         </div>
@@ -30,7 +33,10 @@
                         </div>
                         <div class="text-warning text-center mt-2">
                             <h1>
-                                <?php $total_this_month = \App\Payment::whereMonth('created_at', \Carbon\Carbon::now()->month)->where('digi_center_user_id', Auth::user()->id)->get()->sum('amount'); ?>
+                                <?php $total_this_month = \App\Models\TransactionLog::whereMonth('created_at', \Carbon\Carbon::now()->month)
+                                    ->where('digital_accept_by', Auth::user()->id)
+                                    ->get()
+                                    ->sum('amount'); ?>
                                 {{ $total_this_month }}
                             </h1>
                         </div>
@@ -45,7 +51,9 @@
                         </div>
                         <div class="text-warning text-center mt-2">
                             <h1>
-                                <?php $total_all = \App\Payment::where('digi_center_user_id', Auth::user()->id)->get()->sum('amount'); ?>
+                                <?php $total_all = \App\Models\TransactionLog::where('digital_accept_by', Auth::user()->id)
+                                    ->get()
+                                    ->sum('amount'); ?>
                                 {{ $total_all }}
                             </h1>
                         </div>
@@ -53,40 +61,46 @@
                 </div>
             </div>
             <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">
-                                    Filter
-                                </h5>
-                            </div>
-                            <div class="panel-body text-right">
-                                <form action="" method="get" class="form-horizontal">
-                                    {{ csrf_field() }}
+                <div class="col-md-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                Filter
+                            </h5>
+                        </div>
+                        <div class="panel-body text-right">
+                            <form action="" method="get" class="form-horizontal">
+
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <select id="services" class="form-control" name="service" >
+                                        <select id="service" class="form-control" name="service">
                                             <option value="">Select Services</option>
-                                            @foreach ($services as $service)
-                                            <option value="{{ $service->id }}" {{ (request('service') == $service->id) ? 'selected' : '' }}>{{ $service->name }}</option>
-                                            @endforeach
+                                            <option {{ request('service') == 'CITIZENSHIP' ? 'selected' : '' }}
+                                                value="CITIZENSHIP">CITIZENSHIP</option>
+                                            <option {{ request('service') == 'WARISH' ? 'selected' : '' }} value="WARISH">
+                                                WARISH</option>
+
                                         </select>
                                     </div>
-                                    @if(auth()->user()->isAdmin())
-                                    <div class="col-md-2">
-                                        <select id="services" class="form-control" name="ward" >
-                                            <option value="">Select Ward</option>
-                                            @for($i = 1; $i<12; $i++)
-                                                <option value="{{ $i }}" {{ (request('ward') == $i) ? 'selected' : '' }}>{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
+                                    @if (auth()->user()->isAdmin())
+                                        <div class="col-md-2">
+                                            <select id="services" class="form-control" name="ward">
+                                                <option value="">Select Ward</option>
+                                                @for ($i = 1; $i < 12; $i++)
+                                                    <option value="{{ $i }}"
+                                                        {{ request('ward') == $i ? 'selected' : '' }}>{{ $i }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     @endif
                                     <div class="col-md-2">
-                                        <input id="start_date" class="form-control" name="start_date" type="date" placeholder="Start Date" value="{{ request('start_date') }}">
+                                        <input id="start_date" class="form-control" name="start_date" type="date"
+                                            placeholder="Start Date" value="{{ request('start_date') }}">
                                     </div>
                                     <div class="col-md-2">
-                                        <input id="end_date" class="form-control" name="end_date" type="date" placeholder="End Date" value="{{ request('end_date') }}">
+                                        <input id="end_date" class="form-control" name="end_date" type="date"
+                                            placeholder="End Date" value="{{ request('end_date') }}">
                                     </div>
                                     <div class="col-md-1">
                                         <button class="btn btn-success" type="submit">Submit</button>
@@ -94,73 +108,93 @@
                                     <div class="col-md-1">
                                         <a class="btn btn-info" href="{{ url()->current() }}">Reset</a>
                                     </div>
+                                    <div class="col-md-1">
+                                        <input type="submit" class="btn btn-warning" value="Download" name="Download">
+
+                                    </div>
                                 </div>
                             </form>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="row">
 
-                    <div class="col-md-12">
+                <div class="col-md-12">
 
-                            <table class="table table-striped table-bordered">
-                                <tbody>
-                                <tr style="background: #9E5BBA !important; color: #FFF;">
-                                    <th>ID</th>
-                                    <th>User Name</th>
-                                    <th>Digi User</th>
-                                    <th>Service</th>
-                                    <th>Payment Method</th>
-                                    <th>Amount</th>
-                                    <th>Transaction ID</th>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr style="background: #9E5BBA !important; color: #FFF;">
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>Digi User</th>
+                                <th>Service</th>
+                                <th>Payment Method</th>
+                                <th>Amount</th>
+                                <th>Transaction ID</th>
+                            </tr>
+
+                            @foreach ($datas as $income)
+                                <tr>
+
+                                    <td>{{ $income->id }}</td>
+
+                                    <td>{{ $income->user->name }}</td>
+
+                                    <td>{{ isset($income->digitalAcceptBy->name) ? $income->digitalAcceptBy->name : 'N/A' }}
+                                    </td>
+
+                                    <td>{{ $income->payment_type ?? '' }}</td>
+                                    @php
+                                        $data = json_decode($income->payment_info);
+
+                                    @endphp
+                                    <td>{{ $data->payment_method }}</td>
+                                    <td>{{ $income->amount }}</td>
+                                    <td>{{ $income->transaction_no }}
+
+                                        <div class="paymentinfo">
+                                            @if ($income->payment_info)
+                                                @php
+                                                    $tp_info = json_decode($income->payment_info, true);
+                                                @endphp
+                                                <small>
+                                                    @if (isset($tp_info['receipt_no']))
+                                                        <p> <b title="মেথড">রিসিট নং :
+                                                            </b>{{ e2b($tp_info['receipt_no']) }}</p>
+                                                    @endif
+
+                                                    @if (isset($tp_info['payorder']))
+                                                        <p> <b title="ব্যাঙ্ক ড্রাফট নং">ব্যাঙ্ক ড্রাফট নং #
+                                                            </b>{{ $tp_info['payorder'] }}</p>
+                                                    @endif
+
+                                                    @if (isset($tp_info['tid']))
+                                                        <p> <b title="ট্যাক্স আইডি ">ট্রানঃ আইডিঃ
+                                                            </b>{{ e2b($tp_info['tid']) }}</p>
+                                                    @endif
+                                                    @if (isset($tp_info['date']))
+                                                        <p><b title="তারিখ">তারিখঃ
+                                                            </b>{{ e2b(date('d-F-Y', strtotime($tp_info['date']))) }} </p>
+                                                    @endif
+                                                </small>
+                                            @endif
+                                        </div>
+
+                                    </td>
+
+
+
+
                                 </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="box-footer clearfix">
+                        {{ $datas->links() }}
+                    </div>
 
-                                @foreach($mine_income_statement as $income)
-
-        
-                                    <tr>
-        
-                                        <td>{{ $income->id }}</td>
-                                        {{--<td>--}}
-                                            {{--@php--}}
-                                                {{--$user = \App\User::where(['id' => $income->user_id])->first();--}}
-                                            {{--@endphp--}}
-        
-                                            {{--{{ $user->name }}--}}
-                                        {{--</td>--}}
-                                        <td>{{ $income->user->name }}</td>
-                                        {{--<td>--}}
-                                            {{--@php--}}
-                                                {{--$digi_user = \App\User::where(['id' => $income->digi_center_user_id])->first();--}}
-                                            {{--@endphp--}}
-        
-                                            {{--{{ $digi_user->name }}--}}
-        
-                                        {{--</td>--}}
-                                        <td>{{ (isset($income->digi_user->name))?$income->digi_user->name :'N/A' }}</td>
-                                        {{--<td>--}}
-                                            {{--@php--}}
-                                                {{--$service = \App\Service::where(['id' => $income->service_id])->first();--}}
-                                            {{--@endphp--}}
-        
-                                            {{--{{ $service->name }}--}}
-                                        {{--</td>--}}
-                                        <td>{{ $income->service->name }}</td>
-                                        <td>{{ $income->payment_method }}</td>
-                                        <td>{{ $income->amount }}</td>
-                                        <td>{{ $income->transaction_no }}</td>
-        
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <div class="box-footer clearfix">
-                                {{-- {{ $mine_income_statement->links('component.paginator', ['object' => $mine_income_statement]) }} --}}
-                                {{ $mine_income_statement->appends(request()->query())->links('component.paginator', ['object' => $mine_income_statement]) }}
-                            </div>
-        
-                        </div>
+                </div>
             </div>
         @endif
     </div>
@@ -190,7 +224,7 @@
     </style>
 
     <script type="text/javascript">
-        jQuery(document).ready(function ($) {
+        jQuery(document).ready(function($) {
             $.noConflict();
         });
 
@@ -198,13 +232,15 @@
             jQuery(".panel_" + id).toggle();
         }
 
-        $('#search').on('keyup',function(){
-            $value=$(this).val();
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
             $.ajax({
-                type : 'get',
-                url : '{{URL::to('search')}}',
-                data:{'search':$value},
-                success:function(data){
+                type: 'get',
+                url: '{{ URL::to('search') }}',
+                data: {
+                    'search': $value
+                },
+                success: function(data) {
                     $('tbody').html(data);
                 }
             });

@@ -50,11 +50,18 @@
                                     </td>
 
                                     <td>
+                                        @if ($income->payment_type == 'CITIZENSHIP')
+                                            <a href="{{ route('citizenship.pdf.aplication', $income->citizenship_id) }}"
+                                                class="btn btn-danger btn-sm" target="_blank">
+                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                            </a>
+                                        @elseif ($income->payment_type == 'WARISH')
+                                            <a href="{{ route('citizenship.pdf.aplication', $income->warish_application_id) }}"
+                                                class="btn btn-danger btn-sm" target="_blank">
+                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                            </a>
+                                        @endif
 
-                                        <a href="{{ route('digital.pending_payment_view' , $income->id) }}"
-                                            class="btn btn-danger btn-sm" target="_blank">
-                                            <i class="fa fa-money" aria-hidden="true"></i>
-                                        </a>
 
                                         <a href="{{ route('digital.payment_aprove', $income->id) }}"
                                             class="btn btn-success btn-sm">Aprove</a>
@@ -119,7 +126,7 @@
             $.ajax({
                 type: 'get',
                 url: '{{ URL::to('
-                            search ') }}',
+                                            search ') }}',
                 data: {
                     'search': $value
                 },

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\TransactionLog;
+use App\Modules\Citizenship\Models\Citizenship;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Intervention\Image\Facades\Image;
@@ -326,4 +327,14 @@ function pendding_payment_count($id = null)
         $data = false;
     }
     return $data;
+}
+function totalApprovedCitizenship()
+{
+    $citizenships = Citizenship::where('status','Approved')->count();
+    return $citizenships;
+}
+function totalPendingCitizenship()
+{
+    $citizenships = Citizenship::where('status','Pending')->count();
+    return $citizenships;
 }

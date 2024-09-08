@@ -31,6 +31,10 @@
 
 <body>
     <h2 style="text-align: center;">{{$settings->name??''}}</h2>
+    @if (request('start_date') && request('end_date'))
+        <h5 style="text-align: center;">  Date : {{request('start_date')}} - {{request('end_date')}}</h5>
+    @endif
+
     <table class="table">
         <!--begin::Table head-->
         <thead>
@@ -46,7 +50,7 @@
                 <th class="min-w-100px">User Info</th>
                 <th class="min-w-100px">Amount</th>
 
-                <th class="min-w-100px">Status</th>
+                <th class="min-w-100px">Digital Status</th>
             </tr>
             <!--end::Table row-->
         </thead>

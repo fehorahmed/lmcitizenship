@@ -145,8 +145,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div style="display: none; padding:10px;border: 3px solid #c7b4b4;"
+                                                    <div class="col-md-6" style="padding:10px;border: 3px solid #c7b4b4;">
+                                                        <div style="display: none;"
                                                             id="pay_bank">
                                                             <div class="form-group">
 
@@ -165,19 +165,7 @@
                                                                         placeholder="পে অর্ডার / ব্যাংক ড্রাফট নং..">
 
                                                                 </div>
-                                                                <div class="input-group" style="margin-bottom: 5px">
-                                                                    <div class="input-group-addon"
-                                                                        style="min-width: 165px">
-                                                                        <div class="input-group-text" id="rent_amount_co">
-                                                                            তারিখ
-                                                                        </div>
-                                                                    </div>
-                                                                    <input type="text" name="payment_info[date]"
-                                                                        id="payment_info_date"
-                                                                        class="form-control g-date-pick"
-                                                                        placeholder="তারিখ.." autocomplete="off">
 
-                                                                </div>
                                                                 <div class="input-group" style="margin-bottom: 5px">
                                                                     <div class="input-group-addon"
                                                                         style="min-width: 165px">
@@ -205,7 +193,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div style="display: none; padding:10px;border: 3px solid #30262645;"
+                                                        <div style="display: none; "
                                                             id="rocket_bikash">
                                                             <div class="form-group">
                                                                 <div class="input-group" style="margin-bottom: 5px">
@@ -221,20 +209,7 @@
                                                                         placeholder="লেনদেন নম্বর লিখুন...">
 
                                                                 </div>
-                                                                <div class="input-group" style="margin-bottom: 5px">
-                                                                    <div class="input-group-addon"
-                                                                        style="min-width: 165px">
-                                                                        <div class="input-group-text" id="rent_amount_co">
-                                                                            তারিখ
-                                                                        </div>
-                                                                    </div>
 
-                                                                    <input placeholder="তারিখ.." name="payment_info[date]"
-                                                                        type="text" class="form-control g-date-pick"
-                                                                        v-model="date">
-
-
-                                                                </div>
                                                                 <div class="input-group" style="margin-bottom: 5px">
                                                                     <div class="input-group-addon"
                                                                         style="min-width: 165px">
@@ -242,14 +217,14 @@
                                                                             ট্রানস্যাকশন আইডি
                                                                         </div>
                                                                     </div>
-                                                                    <input type="number" name="payment_info[tid]"
+                                                                    <input type="text" name="payment_info[tid]"
                                                                         id="payment_info_tid" class="form-control"
                                                                         placeholder="ট্রানস্যাকশন আইডি..">
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div style="display: show; padding:10px;border: 3px solid #9b8b8b94;"
+                                                        <div style="display: show; "
                                                             id="cash">
                                                             <div class="form-group">
 
@@ -266,20 +241,7 @@
                                                                         placeholder="রশিদ নম্বর ...">
 
                                                                 </div>
-                                                                <div class="input-group" style="margin-bottom: 5px">
-                                                                    <div class="input-group-addon"
-                                                                        style="min-width: 165px">
-                                                                        <div class="input-group-text" id="rent_amount_co">
-                                                                            তারিখ
-                                                                        </div>
-                                                                    </div>
 
-                                                                    <input placeholder="তারিখ.." name="payment_info[date]"
-                                                                        type="text" class="form-control g-date-pick"
-                                                                        v-model="date">
-
-
-                                                                </div>
                                                                 <div class="input-group" style="margin-bottom: 5px">
                                                                     <div class="input-group-addon"
                                                                         style="min-width: 165px">
@@ -292,9 +254,24 @@
                                                                         id="payment_info_serial_no" class="form-control"
                                                                         placeholder="সিরিয়াল নং ..">
                                                                 </div>
-                                                            </div>
-                                                        </div><br>
 
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                            <div class="input-group-addon"
+                                                                style="min-width: 165px">
+                                                                <div class="input-group-text" id="rent_amount_co">
+                                                                    তারিখ
+                                                                </div>
+                                                            </div>
+
+                                                            <input placeholder="তারিখ.." name="payment_info[date]"
+                                                                type="text" class="form-control g-date-pick"
+                                                                v-model="date">
+
+
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">

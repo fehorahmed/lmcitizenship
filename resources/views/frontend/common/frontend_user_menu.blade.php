@@ -70,7 +70,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('income_statement') }}">
+                                {{-- <a href="{{ url('income_statement') }}"> --}}
+                                <a href="{{ route('digital.income_statement') }}">
                                     আয়ের হিসাব
                                 </a>
                             </li>
@@ -81,11 +82,11 @@
                                     নতুন প্রোফাইল সংযোজন করুন
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ url('profile_list') }}">
                                     সকল প্রোফাইল
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="separator"></li>
                             <li>
                                 <a href="{{ url('income_statement') }}">
