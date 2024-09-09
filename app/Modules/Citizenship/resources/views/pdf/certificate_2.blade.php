@@ -132,12 +132,18 @@
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($fdata->ward->name))
-                            {{-- <p> নাম :</p> --}}
+                            {{$fdata->ward->commissioner_name}} <br>
+                            @if (isset($fdata->ward->commissioner_signature))
+                            <img src="{{ asset($fdata->ward->commissioner_signature) }}" alt=""
+                            height="50px" width="200px">
+                            <br>
+                            @endif
                             {{ isset($fdata->ward->bn_name) ? $fdata->ward->bn_name : $fdata->ward->name }} নং ওয়ার্ড
                             কাউন্সিলর
                             <br>
-
                             {{ $settings->name ?? '' }}
+                            <br>
+                            মোবাইলঃ {{ e_to_b( $fdata->ward->commissioner_phone ?? '') }}
                         @endif
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">

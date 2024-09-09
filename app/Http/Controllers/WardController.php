@@ -46,12 +46,21 @@ class WardController extends Controller
             "union" => 'required|numeric',
             "name" => 'required|string|max:255',
             "bn_name" => 'required|string|max:255',
+            "commissioner_name" => 'required|string|max:255',
+            "commissioner_phone" => 'required|numeric',
+            "commissioner_signature" => 'nullable|image|max:100',
         ]);
 
         $data = new Ward();
         $data->name = $request->name;
         $data->bn_name = $request->bn_name;
+        $data->commissioner_name = $request->commissioner_name;
+        $data->commissioner_phone = $request->commissioner_phone;
         $data->union_id = $request->union;
+
+        if ($request->commissioner_signature) {
+            $data->commissioner_signature =  saveImage('signature', $request->commissioner_signature, 200, 50);
+        }
         if ($data->save()) {
             return redirect()->route('admin.config.ward.index')->with('success', 'Ward created successfully.');
         } else {
@@ -98,12 +107,21 @@ class WardController extends Controller
             "union" => 'required|numeric',
             "name" => 'required|string|max:255',
             "bn_name" => 'required|string|max:255',
+            "commissioner_name" => 'required|string|max:255',
+            "commissioner_phone" => 'required|numeric',
+            "commissioner_signature" => 'nullable|image|max:100',
         ]);
 
 
         $ward->name = $request->name;
         $ward->bn_name = $request->bn_name;
+        $ward->commissioner_name = $request->commissioner_name;
+        $ward->commissioner_phone = $request->commissioner_phone;
         $ward->union_id = $request->union;
+        if ($request->commissioner_signature) {
+            deleteFile($ward->commissioner_signature);
+            $ward->commissioner_signature =  saveImage('signature', $request->commissioner_signature, 200, 50);
+        }
         if ($ward->save()) {
             return redirect()->route('admin.config.ward.index')->with('success', 'Ward updated successfully.');
         } else {

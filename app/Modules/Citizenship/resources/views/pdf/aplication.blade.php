@@ -183,7 +183,7 @@
         <br>
         <br>
 
-        <table style="width: 100%;  border: 0px solid #000;">
+        {{-- <table style="width: 100%;  border: 0px solid #000;">
             <tr>
                 <td style="width: 30%; text-align: center">
                     <p>
@@ -216,7 +216,7 @@
             </tr>
 
 
-        </table>
+        </table> --}}
 
         {{-- <htmlpagefooter name="page-footer">
 

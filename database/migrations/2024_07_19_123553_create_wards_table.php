@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreign('union_id')->references('id')->on('unions');
             $table->string('name');
             $table->string('bn_name')->nullable();
+            $table->string('commissioner_name')->nullable();
+            $table->string('commissioner_signature')->nullable();
+            $table->string('commissioner_phone')->nullable();
             $table->timestamps();
         });
     }
