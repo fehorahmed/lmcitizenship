@@ -803,7 +803,20 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $payment  = TransactionLog::where(['is_active' => 'No'])->paginate(15);
+        if($user->role==4){
+            $payment  = TransactionLog::where(function($query) {
+                $query->whereHas('citizen', function($q) {
+                    $q->where('ward_id', 1);
+                })->orWhereHas('warish', function($q) {
+                    $q->where('ward_id', 1);
+                });
+            })->where(['is_active' => 'No'])->paginate(15);
+        }
+        if($user->role==2){
+            $payment  = TransactionLog::where(['is_active' => 'No'])->paginate(15);
+        }
+
+
 
         return view('frontend.common.pending_payment')->with([
             'user' => $user,

@@ -54,6 +54,16 @@
                         </a>
                     </li>
                 @endif
+                @if (Auth::user()->isCommissioner())
+                    <li class="{{ Route::is('digital.pending_payment') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.pending_payment') }}">
+                            অপেক্ষারত যাচাই
+                            @if(pendding_payment_count())
+                            <span class="text-danger notice_icon">{{ pendding_payment_count() }}</span>
+                            @endif
+                        </a>
+                    </li>
+                @endif
                 <li
                     class="dropdown
                     {{ Request::segment(1) == 'add_profile' || Request::segment(1) == 'profile_list' || Request::segment(1) == 'income_statement' ? 'nav_active' : null }}
@@ -88,6 +98,14 @@
                                 </a>
                             </li> --}}
                             <li class="separator"></li>
+                            <li>
+                                <a href="{{ url('income_statement') }}">
+                                    আয়ের হিসাব
+                                </a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->isCommissioner())
+
                             <li>
                                 <a href="{{ url('income_statement') }}">
                                     আয়ের হিসাব

@@ -14,4 +14,8 @@ class Ward extends Model
     {
         return $this->belongsTo(Union::class, 'union_id');
     }
+    public function commissioner()
+    {
+        return $this->hasOne(User::class, 'commissioner_ward_id');
+    }
 }

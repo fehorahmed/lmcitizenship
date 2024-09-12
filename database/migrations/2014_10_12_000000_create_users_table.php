@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('marital_status')->nullable();
             $table->boolean('user_type')->default(1)->comment('স্থায়ী বাসিন্দা নাকি অস্থায়ী বাসিন্দা');
             //Present
+            $table->foreignId('commissioner_ward_id')->nullable();
             $table->foreignId('division_id')->nullable();
             $table->foreignId('district_id')->nullable();
             $table->foreignId('sub_district_id')->nullable();

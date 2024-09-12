@@ -3,7 +3,7 @@
     {{ isset($pageTitle) ? $pageTitle : 'Ward Edit' }}
 @endsection
 @section('content')
-    @include('admin.master.flash')
+    {{-- @include('admin.master.flash') --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -104,45 +104,79 @@
                                 </div>
 
                             </div>
-                            <div class="row mb-3">
-                                <label for="commissioner_name" class="col-12 col-md-3 col-form-label">Commissioner
-                                    Name</label>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" name="commissioner_name" id="commissioner_name"
-                                        value="{{ old('commissioner_name', $ward->commissioner_name) }}"
-                                        class="form-control" placeholder="Commissioner Name">
-                                    @error('commissioner_name')
-                                        <div class="help-block text-danger">{{ $message }} </div>
-                                    @enderror
-                                </div>
+                            <div class="row bg-light">
+                                <h3 class="text-center">Commissioner Info</h3>
                             </div>
-                            <div class="row mb-3">
-                                <label for="commissioner_phone" class="col-12 col-md-3 col-form-label">Commissioner Phone</label>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" name="commissioner_phone" id="commissioner_phone" value="{{ old('commissioner_phone', $ward->commissioner_phone) }}"
-                                        class="form-control" placeholder="Commissioner Phone">
-                                    @error('commissioner_phone')
-                                        <div class="help-block text-danger">{{ $message }} </div>
-                                    @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="commissioner_name" class="col-form-label">Commissioner Name</label>
+                                    <div class="">
+                                        <input type="text" name="commissioner_name" id="commissioner_name"
+                                            value="{{ old('commissioner_name', $ward->commissioner->name ?? '') }}"
+                                            class="form-control" placeholder="Commissioner Name">
+                                        @error('commissioner_name')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <label for="commissioner_phone" class="col-form-label">Commissioner Phone</label>
+                                    <div class="">
+                                        <input type="text" name="commissioner_phone" id="commissioner_phone"
+                                            value="{{ old('commissioner_phone', $ward->commissioner->phone ?? '') }}"
+                                            class="form-control" placeholder="Commissioner Phone">
+                                        @error('commissioner_phone')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+
+                                    <label for="commissioner_signature" class="col-form-label">Commissioner
+                                        Signature</label>
+                                    <div class="">
+                                        <input type="file" name="commissioner_signature" class="form-control"
+                                            id="commissioner_signature">
+                                        @error('commissioner_signature')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                        @if (isset($ward->commissioner->signature))
+                                            <img src="{{ asset($ward->commissioner->signature ?? '') }}" class="mt-1"
+                                                alt="" width="200" height="50">
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="commissioner_signature" class="col-12 col-md-3 col-form-label">Commissioner
-                                    Signature</label>
-                                <div class="col-12 col-md-9">
-                                    <input type="file" name="commissioner_signature" class="form-control"
-                                        id="commissioner_signature">
-                                    @error('commissioner_signature')
-                                        <div class="help-block text-danger">{{ $message }} </div>
-                                    @enderror
-                                    @if ($ward->commissioner_signature)
-                                        <img src="{{ asset($ward->commissioner_signature ?? '') }}" class="mt-1"
-                                            alt="" width="200" height="50">
-                                    @endif
+                                <div class="col-md-6">
+                                    <label for="commissioner_email" class="col-form-label">Commissioner Email</label>
+                                    <div class="">
+                                        <input type="text" name="commissioner_email" id="commissioner_email"
+                                            value="{{ old('commissioner_email', $ward->commissioner->email ?? '') }}"
+                                            class="form-control" placeholder="Commissioner Email">
+                                        @error('commissioner_email')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <label for="password" class="col-form-label">Password</label>
+                                    <div class="">
+                                        <input type="password" name="password" id="password"
+                                            value="{{ old('password') }}" class="form-control" placeholder="Password">
+                                        @error('password')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <label for="password_confirmation" class="col-form-label">Confirm Password</label>
+                                    <div class="">
+                                        <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password"
+                                            id="password_confirmation">
+                                        @error('password_confirmation')
+                                            <div class="help-block text-danger">{{ $message }} </div>
+                                        @enderror
+                                    </div>
+
                                 </div>
                             </div>
 
-                            <div class="text-center mb-3">
+                            <div class="text-center mb-3 mt-2">
                                 <a href="{{ route('admin.config.ward.index') }}" class="btn btn-danger">Back</a>
                                 <input type="submit" class="btn btn-primary  " value="Update Ward">
                             </div>

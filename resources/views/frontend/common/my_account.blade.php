@@ -165,6 +165,142 @@
                         </div>
                     </div>
                 </div>
+            @elseif (Auth::user()->isCommissioner())
+
+            <div class="jumbotron">
+
+                <div class="row w-100">
+                    <div class="col-md-3">
+                        <div class="card border-info mx-sm-1 p-3">
+
+                            <div class="text-info text-center mt-2">
+                                <h1>
+                                    <?php $dc_history = paymentHistory(); ?>
+                                    {{ $dc_history['today_register'] }}
+                                </h1>
+                            </div>
+                            <div class="text-info text-center mt-3">
+                                <h4>
+                                    আজকের নতুন রেজিস্ট্রেশন
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-success mx-sm-1 p-3">
+
+                            <div class="text-warning text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['total_register'] }}
+                                </h1>
+                            </div>
+                            <div class="text-warning text-center mt-3">
+                                <h4>
+                                    মোট রেজিস্ট্রেশন
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-danger mx-sm-1 p-3">
+
+                            <div class="text-danger text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['today_income'] }}
+                                </h1>
+                            </div>
+                            <div class="text-danger text-center mt-3">
+                                <h4>
+                                    আজকের আয়
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-danger mx-sm-1 p-3">
+
+                            <div class="text-danger text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['total_income'] }}
+                                </h1>
+                            </div>
+                            <div class="text-danger text-center mt-3">
+                                <h4>
+                                    মোট আয়
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row w-100">
+                    <div class="col-md-3">
+                        <div class="card border-info mx-sm-1 p-3">
+
+                            <div class="text-success text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['today_income_up'] }}
+                                </h1>
+                            </div>
+
+                            <div class="text-success text-center mt-3">
+                                <h4>
+
+                                    পৌরসভার আজকের আয়
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-success mx-sm-1 p-3">
+
+                            <div class="text-danger text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['total_income_up'] }}
+                                </h1>
+                            </div>
+
+                            <div class="text-danger text-center mt-3">
+                                <h4>
+                                    পৌরসভার মোট আয়
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-danger mx-sm-1 p-3">
+
+                            <div class="text-danger text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['up_paid'] }}
+                                </h1>
+                            </div>
+                            <div class="text-danger text-center mt-3">
+                                <h4>
+                                    মোট পরিশোধিত
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-danger mx-sm-1 p-3">
+
+                            <div class="text-danger text-center mt-2">
+                                <h1>
+                                    {{ $dc_history['up_due'] }}
+                                </h1>
+                            </div>
+                            <div class="text-danger text-center mt-3">
+                                <h4>
+                                    মোট বকেয়া
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             @else
                 <div class="jumbotron">
                     <div class="row">

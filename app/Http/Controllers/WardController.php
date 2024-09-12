@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Division;
+use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class WardController extends Controller
 {
@@ -48,9 +50,18 @@ class WardController extends Controller
             "bn_name" => 'required|string|max:255',
             "commissioner_name" => 'required|string|max:255',
             "commissioner_phone" => 'required|numeric',
+            "commissioner_email" => 'required|email',
             "commissioner_signature" => 'nullable|image|max:100',
+            "password" => 'required|string|confirmed|min:6|max:20',
         ]);
-
+        $u_ck = User::where('email', $request->commissioner_email)->first();
+        $p_ck = User::where('phone', $request->commissioner_phone)->first();
+        if ($u_ck) {
+            return redirect()->back()->withInput()->with('error', 'Email already present.');
+        }
+        if ($p_ck) {
+            return redirect()->back()->withInput()->with('error', 'Phone number already present.');
+        }
         $data = new Ward();
         $data->name = $request->name;
         $data->bn_name = $request->bn_name;
@@ -62,6 +73,26 @@ class WardController extends Controller
             $data->commissioner_signature =  saveImage('signature', $request->commissioner_signature, 200, 50);
         }
         if ($data->save()) {
+
+            $user = User::where('commissioner_ward_id', $data->id)->first();
+            if (!$user) {
+                $user = new User();
+                $user->role = 4;
+            }
+
+            $user->name = $request->commissioner_name;
+            $user->phone = $request->commissioner_phone;
+            $user->email = $request->commissioner_email;
+            $user->signature = $data->commissioner_signature;
+            $user->commissioner_ward_id = $data->id;
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+
+
+
+
             return redirect()->route('admin.config.ward.index')->with('success', 'Ward created successfully.');
         } else {
             return redirect()->back()->with('error', 'Something went wrong');
@@ -109,10 +140,25 @@ class WardController extends Controller
             "bn_name" => 'required|string|max:255',
             "commissioner_name" => 'required|string|max:255',
             "commissioner_phone" => 'required|numeric',
+            "commissioner_email" => 'required|email',
             "commissioner_signature" => 'nullable|image|max:100',
+            "password" => 'nullable|string|confirmed|min:6|max:20',
         ]);
 
-
+        $u_ck = User::where('email', $request->commissioner_email)->first();
+        if ($u_ck) {
+            if ($u_ck->commissioner_ward_id == $ward->id) {
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Email already present.');
+            }
+        }
+        $p_ck = User::where('phone', $request->commissioner_phone)->first();
+        if ($p_ck) {
+            if ($p_ck->commissioner_ward_id == $ward->id) {
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Phone number already present.');
+            }
+        }
         $ward->name = $request->name;
         $ward->bn_name = $request->bn_name;
         $ward->commissioner_name = $request->commissioner_name;
@@ -122,7 +168,26 @@ class WardController extends Controller
             deleteFile($ward->commissioner_signature);
             $ward->commissioner_signature =  saveImage('signature', $request->commissioner_signature, 200, 50);
         }
+
         if ($ward->save()) {
+
+            $user = User::where('commissioner_ward_id', $ward->id)->first();
+            if (!$user) {
+                $user = new User();
+                $user->role = 4;
+            }
+
+            $user->name = $request->commissioner_name;
+            $user->phone = $request->commissioner_phone;
+            $user->email = $request->commissioner_email;
+            $user->signature = $ward->commissioner_signature;
+            $user->commissioner_ward_id = $ward->id;
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+
+
             return redirect()->route('admin.config.ward.index')->with('success', 'Ward updated successfully.');
         } else {
             return redirect()->back()->with('error', 'Something went wrong');

@@ -3,7 +3,7 @@
     {{ isset($pageTitle) ? $pageTitle : 'Ward Create' }}
 @endsection
 @section('content')
-    @include('admin.master.flash')
+    {{-- @include('admin.master.flash') --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -158,11 +158,11 @@
                                         @enderror
                                     </div>
 
-                                    <label for="confirm_password" class="col-form-label">Confirm Password</label>
+                                    <label for="password_confirmation" class="col-form-label">Confirm Password</label>
                                     <div class="">
-                                        <input type="password" name="confirm_password" class="form-control"
-                                            id="confirm_password">
-                                        @error('confirm_password')
+                                        <input type="password" name="password_confirmation" class="form-control"
+                                            id="password_confirmation">
+                                        @error('password_confirmation')
                                             <div class="help-block text-danger">{{ $message }} </div>
                                         @enderror
                                     </div>

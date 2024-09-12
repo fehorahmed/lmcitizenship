@@ -20,7 +20,7 @@ class AdminCheck
         if (Auth::check()) {
             $user = Auth::user();
 
-            if ($user->role == 1 || $user->role == 2) {
+            if ($user->role == 1 || $user->role == 2 || $user->role == 4) {
 
                 return redirect()->route('user.profile');
             }

@@ -76,6 +76,10 @@ class User extends Authenticatable
     {
         return $this->role == 2;
     }
+    public function isCommissioner()
+    {
+        return $this->role == 4;
+    }
 
     public function division()
     {
