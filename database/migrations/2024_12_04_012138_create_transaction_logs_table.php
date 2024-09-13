@@ -26,11 +26,19 @@ return new class extends Migration
             $table->foreign('warish_application_id')->on('warish_applications')->references('id');
             $table->enum('is_active',['yes','no'])->default('no');
             $table->boolean('digital_status')->default(0);
+
+            $table->boolean('commissioner_status')->default(0);
+
             $table->boolean('admin_status')->default(0);
             $table->foreignId('admin_accept_by')->nullable();
             $table->foreign('admin_accept_by')->on('users')->references('id');
+
             $table->foreignId('digital_accept_by')->nullable();
             $table->foreign('digital_accept_by')->on('users')->references('id');
+
+            $table->foreignId('commissioner_accept_by')->nullable();
+            $table->foreign('commissioner_accept_by')->on('users')->references('id');
+
             $table->foreignId('created_by');
             $table->foreign('created_by')->on('users')->references('id');
             $table->foreign('user_id')->on('users')->references('id');

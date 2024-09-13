@@ -803,16 +803,18 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        if($user->role==4){
-            $payment  = TransactionLog::where(function($query) {
-                $query->whereHas('citizen', function($q) {
+        if ($user->role == 4) {
+            $payment  = TransactionLog::where(function ($query) {
+                $query->whereHas('citizen', function ($q) {
                     $q->where('ward_id', 1);
-                })->orWhereHas('warish', function($q) {
-                    $q->where('ward_id', 1);
+                })->orWhereHas('warish', function ($q) {
+                    $q->whereHas('warish', function ($p) {
+                        $p->where('ward_id', 1);
+                    });
                 });
-            })->where(['is_active' => 'No'])->paginate(15);
+            })->where(['commissioner_status' => 0])->paginate(15);
         }
-        if($user->role==2){
+        if ($user->role == 2) {
             $payment  = TransactionLog::where(['is_active' => 'No'])->paginate(15);
         }
 
@@ -873,18 +875,36 @@ class UserController extends Controller
         }
     }
     public function payment_aprove(Request $request, $id)
-
     {
 
         $data = TransactionLog::findOrFail($id);
 
         // dd($model);
         try {
+            if ($data->payment_type == 'CITIZENSHIP') {
+                TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_status' => 1, 'digital_accept_by' => auth()->user()->id]);
 
-            TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_status' => 1, 'digital_accept_by' => auth()->user()->id]);
+                Citizenship::where('id', $data->citizenship_id)->update(['digital_status' => 1]);
+            }
 
-            Citizenship::where('id', $data->citizenship_id)->update(['digital_status' => 1]);
 
+
+
+            return redirect()->back()->with('success', 'Successfully save changed');
+        } catch (\Illuminate\Database\QueryException $ex) {
+
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
+    }
+    public function commissioner_payment_aprove(Request $request, $id)
+    {
+        $data = TransactionLog::findOrFail($id);
+        try {
+            if ($data->payment_type == 'CITIZENSHIP') {
+                TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'commissioner_status' => 1, 'commissioner_accept_by' => auth()->user()->id]);
+
+                Citizenship::where('id', $data->citizenship_id)->update(['commissioner_status' => 1]);
+            }
 
 
             return redirect()->back()->with('success', 'Successfully save changed');

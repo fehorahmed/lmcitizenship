@@ -62,9 +62,15 @@
                                             </a>
                                         @endif
 
-
+                                        @if (auth()->user()->role==2)
                                         <a href="{{ route('digital.payment_aprove', $income->id) }}"
                                             class="btn btn-success btn-sm">Aprove</a>
+                                        @elseif (auth()->user()->role==4)
+                                        <a href="{{ route('commissioner.payment_aprove', $income->id) }}"
+                                            class="btn btn-success btn-sm">Aprove</a>
+                                        @endif
+
+
 
 
                                     </td>

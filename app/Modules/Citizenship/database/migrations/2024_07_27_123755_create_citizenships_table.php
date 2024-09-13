@@ -56,6 +56,7 @@ return new class extends Migration
             $table->text('citizenship_file')->nullable();
             $table->text('photo_file')->nullable();
             $table->boolean('digital_status')->default(0)->comment('Digital user approved or not');
+            $table->boolean('commissioner_status')->default(0);
             $table->enum('status', ['Pending', 'Approved', 'Modification', 'Canceled'])->default('Pending');
 
             // Hasan Defaul coulmns
