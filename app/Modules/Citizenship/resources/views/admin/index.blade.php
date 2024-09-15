@@ -41,7 +41,8 @@
                                 <th>গ্রাম</th>
                                 <th>ডাকঘর</th>
                                 <th>ওয়ার্ড নং</th>
-                                <th>Digital status</th>
+                                <th>Digital Status</th>
+                                <th>Commissioner Status</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>কার্যকলাপ</th>
                             </tr>
@@ -51,11 +52,19 @@
                                     <td>{{ $citizenship->name }}</td>
                                     <td>{{ $citizenship->father }}</td>
                                     <td>{{ $citizenship->mother }}</td>
-                                    <td>{{ $citizenship->moholla->name ?? '' }}</td>
-                                    <td>{{ $citizenship->postOffice->name ?? '' }}</td>
-                                    <td>{{ $citizenship->word->name ?? '' }}</td>
+                                    <td>{{ $citizenship->moholla->bn_name ?? '' }}</td>
+                                    <td>{{ $citizenship->postOffice->bn_name ?? '' }}</td>
+                                    <td>{{ $citizenship->ward->bn_name ?? '' }}</td>
                                     <td>
                                         @if ($citizenship->digital_status)
+                                            Approved
+
+                                        @else
+                                        Pending
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($citizenship->commissioner_status)
                                             Approved
 
                                         @else

@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class WarishController extends Controller
 {
@@ -31,8 +32,6 @@ class WarishController extends Controller
 
     public function admin_index(Request $request)
     {
-
-
 
         $mdata = WarishApplication::where(['is_active' => 'Yes']);
 
@@ -364,6 +363,7 @@ class WarishController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
+        // dd($request->all());
         // if ($set->is_nid_file) {
         //     $rules['nid_file'] = 'required|image|mimes:jpeg,png,jpg|max:2048';
         // }
@@ -405,7 +405,7 @@ class WarishController extends Controller
                 $tr_log = new TransactionLog();
                 $tr_log->payment_type = 'WARISH';
                 $tr_log->user_id = auth()->id();
-                $tr_log->date =$request->payment_info['date'];
+                $tr_log->date =  Carbon::createFromFormat('d-m-Y', $request->payment_info['date'])->format('Y-m-d');
                 $tr_log->payment_info = json_encode($request->payment_info);
                 $tr_log->amount = $request->payment_info['total'];
                 $tr_log->warish_application_id = $warish_app->id;
@@ -423,10 +423,11 @@ class WarishController extends Controller
                 DB::commit();
                 return redirect()->route('user.warish')->with('swal_success', 'Successfully save changed!');
             }
-        } catch (\Illuminate\Database\QueryException $ex) {
-
-            return redirect()->back()->withErrors($ex->getMessage());
+        } catch (\Throwable $ex) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('failed',$ex->getMessage());
         }
+
     }
 
 
@@ -575,6 +576,28 @@ class WarishController extends Controller
         } else {
             return redirect()->back()->with('swal_error', 'Your going to wrong way. Please contact with Admin');
         }
+    }
+    public function pdf_certificate_2(Request $request, $id)
+    {
+
+
+        if (auth()->user()->role == 1) {
+            $fdata = WarishApplication::where(['id' => $id, 'user_id' => auth()->id()])->first();
+        } else {
+            $fdata = WarishApplication::findOrFail($id);
+        }
+
+        $settings = Setting::first();
+        $rules = WarishSetting::first();
+
+
+        // $data['fdata'] = $citizen;
+        // $data['settings'] = $settings;
+        // $data['rules'] = $rules;
+        $qr_code = QrCode::generate(
+            'Warish ID: '.$fdata->id,
+        );
+        return view('Warish::pdf.certificate_2', compact('fdata', 'settings', 'rules', 'qr_code'));
     }
 
     public function pdf_application(Request $request, $id)

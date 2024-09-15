@@ -39,6 +39,10 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->integer('sort_by')->nullable();
             $table->enum('is_active', ['Yes', 'No'])->default('Yes');
+
+            $table->boolean('digital_status')->default(0)->comment('Digital user approved or not');
+            $table->boolean('commissioner_status')->default(0);
+
             $table->foreignId('create_by')->nullable();
             $table->foreign('create_by')->references('id')->on('users');
             $table->foreignId('modified_by')->nullable();

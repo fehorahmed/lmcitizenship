@@ -19,7 +19,7 @@
 
                         </div>
                     </div>
-                    <h4 class="page-title">Citizenship List</h4>
+                    <h4 class="page-title">Warish List</h4>
                 </div>
             </div>
         </div>
@@ -41,6 +41,8 @@
                                 <th>গ্রাম</th>
                                 <th>ডাকঘর</th>
                                 <th>ওয়ার্ড নং</th>
+                                <th>Digital Status</th>
+                                <th>Commissioner Status</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>কার্যকলাপ</th>
                             </tr>
@@ -78,6 +80,22 @@
                                     </td>
                                     <td>
                                         {{ $data->created_at ? date('d-M-Y', strtotime($data->created_at)) : null }}
+                                    </td>
+                                    <td>
+                                        @if ($data->digital_status)
+                                            Approved
+
+                                        @else
+                                        Pending
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($data->commissioner_status)
+                                            Approved
+
+                                        @else
+                                        Pending
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $data->status ? $data->status : null }}

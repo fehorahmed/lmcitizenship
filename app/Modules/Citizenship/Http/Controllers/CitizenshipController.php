@@ -372,7 +372,7 @@ class CitizenshipController extends Controller
         // $data['settings'] = $settings;
         // $data['rules'] = $rules;
         $qr_code = QrCode::generate(
-            'Hello, World!',
+            'Citizenship ID: '.$fdata->id,
         );
         return view('Citizenship::pdf.certificate_2', compact('fdata', 'settings', 'rules', 'qr_code'));
     }

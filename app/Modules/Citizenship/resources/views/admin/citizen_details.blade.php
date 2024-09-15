@@ -151,7 +151,7 @@
 
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <h2>INVOICE {{ 'LM-' . $fdata->id }}</h2>
+                                    <h2>INVOICE {{ 'LM-C-' . $fdata->id }}</h2>
                                     <div class="date">Date of Invoice: {{ date('d/m/Y', strtotime($fdata->created_at)) }}
                                     </div>
 

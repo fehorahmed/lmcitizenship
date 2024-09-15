@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:web']], function () {
 
     Route::get('warish/pdf/{id}/payment',   [WarishController::class, 'pdf_payment'])->name('warish.pdf.payment');
     Route::get('warish/pdf/{id}/certificate',  [WarishController::class, 'pdf_certificate'])->name('warish.pdf.certificate');
+    Route::get('warish/pdf/{id}/certificate_2',  [WarishController::class, 'pdf_certificate_2'])->name('warish.pdf.certificate_2');
     Route::get('warish/pdf/{id}/application',   [WarishController::class, 'pdf_application'])->name('warish.pdf.application');
     Route::get('warish/ajax_rowitem',  [WarishController::class, 'ajax_rowitem'])->name('warish.ajax.rowitem');
 });

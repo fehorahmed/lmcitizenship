@@ -103,7 +103,7 @@
                     </ul>
                 </div>
             </li>
-            {{-- <li class="side-nav-item">
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#WarishDashboards" aria-expanded="false"
                     aria-controls="WarishDashboards" class="side-nav-link">
                     <i class="uil-home-alt"></i>
@@ -121,7 +121,7 @@
 
                     </ul>
                 </div>
-            </li> --}}
+            </li>
             <li class="side-nav-item">
                 <a href="{{ route('admin.account-detail') }}" class="side-nav-link">
                     <i class="uil-calender"></i>

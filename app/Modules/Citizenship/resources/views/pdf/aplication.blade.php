@@ -139,8 +139,19 @@
                 <tr>
                     <td>নামঃ </td>
                     <td>{{ $citizen->name }}</td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="2" rowspan="3" style="text-align: center;">
+                        @if (isset($citizen->ward->name))
+                        <br>
+                        {{$citizen->ward->commissioner_name}} <br>
+
+                        {{ isset($citizen->ward->bn_name) ? $citizen->ward->bn_name : $citizen->ward->name }} নং ওয়ার্ড
+                        কাউন্সিলর
+                        <br>
+
+                        মোবাইলঃ {{ e_to_b( $citizen->ward->commissioner_phone ?? '') }}
+                    @endif
+                    </td>
+
                 </tr>
                 <tr>
                     <td>পিতার নামঃ </td>
@@ -179,184 +190,7 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
 
-        {{-- <table style="width: 100%;  border: 0px solid #000;">
-            <tr>
-                <td style="width: 30%; text-align: center">
-                    <p>
-                        @if (isset($rules->singtur_one_img))
-                        <img src="{{ $rules->singtur_one_img }}" alt="" width="80">
-                        @endif
-                    </p>
-                    <p style="text-align: center">
-                        {!! $rules->singtur_one_text??'' !!}
-                    </p>
-
-
-                </td>
-                <td style="width: 40%; text-align: center">
-
-                </td>
-                <td style="width: 30%;text-align: center">
-                    <p>
-                        @if (isset($rules->singtur_two_img))
-                        <img src="{{ $rules->singtur_two_img }}" alt="" width="80">
-                        @endif
-                    </p>
-                    <p style="text-align: center">
-                        {!! $rules->singtur_two_text??'' !!}
-                    </p>
-
-                </td>
-
-
-            </tr>
-
-
-        </table> --}}
-
-        {{-- <htmlpagefooter name="page-footer">
-
-        <table border="0" style="width:100%;margin:auto;">
-            <tr>
-
-                <td colspan="2" style="padding: 10px; text-align: left; font-size:17px;">
-
-                </td>
-                <td colspan="2" style="padding: 10px; text-align: right; font-size: 17px;">
-                    @php
-                    $footer = ' পেইজ নং - {PAGENO}'
-                    @endphp
-                    <span style="color: #000; font-size: 12px">{{ ($footer) }}</span>
-                </td>
-
-            </tr>
-            <tr style="background:#ADD3CA">
-
-                <td colspan="2" style="padding: 10px; text-align: left; font-size:17px;">
-                    ফ্রীলান্সার আইটি কর্তৃক সর্বসত্ত্ব সংরক্ষিত ।
-                </td>
-                <td colspan="2" style="padding: 10px; text-align: right; font-size: 17px;">
-                    ডিজিটাল বাংলাদেশ বিনির্মাণে আমরা অঙ্গীকারব্ধ ।
-                </td>
-
-            </tr>
-
-
-        </table>
-
-    </htmlpagefooter> --}}
-
-
-        {{-- <div style="width: 90%; margin:auto">
-
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 33.33%"></td>
-                <td style="width: 33.33%" class="certificate-titel">
-                    <p class="certificate-titel">{{ $pagetaitle }}</p>
-                </td>
-                <td style="width: 33.33%"></td>
-            </tr>
-        </table>
-        <br>
-        <br>
-
-
-
-
-        <table style="width:100%;margin:auto;" class="bable2">
-
-            <tbody>
-                <tr>
-                    <td>নামঃ</td>
-                    <td colspan="3">{{ $citizen->name }}</td>
-
-                </tr>
-                <tr>
-                    <td> {{ ($citizen->father)? 'পিতার' : 'স্বামীর' }} নামঃ</td>
-                    <td>{{ ($citizen->father)?$citizen->father : $citizen->husband }}</td>
-                    <td> মাতার নামঃ </td>
-                    <td>{{ $citizen->mother }}</td>
-                </tr>
-                <tr>
-                    <td>গ্রামঃ</td>
-                    <td>{{ $citizen->village }}</td>
-                    <td>ডাকঘরঃ</td>
-                    <td>{{ $citizen->postoffice }}</td>
-                </tr>
-                <tr>
-                    <td> ওয়ার্ড নং </td>
-                    <td>{{ ($citizen->ward_no )}}</td>
-                    <td>উপজেলাঃ</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> জেলাঃ </td>
-                    <td></td>
-                    <td>মোবাইলঃ</td>
-                    <td>{{ $citizen->user->phone }}</td>
-                </tr>
-                <tr>
-                    <td> জন্ম নিবন্ধন নং </td>
-                    <td>{{ $citizen->bc_no }}</td>
-                    <td>জাতীয় পরিচয় পত্র নং</td>
-                    <td>{{ $citizen->nid }}</td>
-                </tr>
-
-            </tbody>
-        </table>
-
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <table style="width: 100%;  border: 0px solid #000;">
-            <tr>
-                <td style="width: 30%; text-align: center">
-                    <p>
-                        @if (isset($rules->singtur_one_img))
-                        <img src="{{ $rules->singtur_one_img }}" alt="" width="80">
-                        @endif
-                    </p>
-                    <p style="text-align: center">
-                        {!! $rules->singtur_one_text !!}
-                    </p>
-
-
-                </td>
-                <td style="width: 40%; text-align: center">
-
-                </td>
-                <td style="width: 30%;text-align: center">
-                    <p>
-                        @if (isset($rules->singtur_two_img))
-                        <img src="{{ $rules->singtur_two_img }}" alt="" width="80">
-                        @endif
-                    </p>
-                    <p style="text-align: center">
-                        {!! $rules->singtur_two_text !!}
-                    </p>
-
-                </td>
-
-
-            </tr>
-
-
-        </table>
-
-
-
-
-    </div> --}}
     @endif
 
 </body>

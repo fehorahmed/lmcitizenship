@@ -35,7 +35,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                Asset Details
+                                {{-- Asset Details --}}
                                 @if ($mdata)
                                     <a class="btn {{ btnStatus($mdata->status) }}" href="javascript:void(0)">
                                         {{ $mdata->status }}
@@ -50,7 +50,16 @@
                                         id="change-status-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Change status
                                     </button>
+                                    <a href="{{ route('warish.pdf.application', $mdata->id) }}" class="btn btn-danger"
+                                        target="_blank">
+                                        <i class="fa fa-print" aria-hidden="true"></i> আবেদনপত্র</a>
+                                        @if($mdata->status == 'Approved')
+                                        <a href="{{ route('warish.pdf.certificate_2', $mdata->id) }}" class="btn btn-info"
+                                            target="_blank">
+                                            <i class="fa fa-print" aria-hidden="true"></i> ওয়ারিশ সনদ</a>
 
+
+                                        @endif
                                 </div>
 
                             </div>
@@ -150,20 +159,21 @@
                             <div class="btn-group" role="group" aria-label="...">
 
                                 @if($mdata)
-                                <a href="{{route('warish.pdf.application', $mdata->id)}}" target="_blank" class="btn btn-info">
+                                {{-- <a href="{{route('warish.pdf.application', $mdata->id)}}" target="_blank" class="btn btn-info">
                                     <i class="fa fa-print" aria-hidden="true"></i> আবেদনপত্র
-                                </a>
+                                </a> --}}
                                 <a href="{{route('warish.pdf.payment', $mdata->id)}}" target="_blank" class="btn btn-danger">
                                     <i class="fa fa-print" aria-hidden="true"></i> পেমেন্ট রশিদ
                                 </a>
                                 @endif
-                                @if($mdata->status == 'Approved')
+                                {{-- @if($mdata->status == 'Approved')
+
                                 <a href="{{route('warish.pdf.certificate', $mdata->id)}}" target="_blank"
                                     class="btn btn-success">
                                     <i class="fa fa-print" aria-hidden="true"></i> ওয়ারিশ সনদ
                                 </a>
 
-                                @endif
+                                @endif --}}
                             </div>
                         </h3>
                     </div>
@@ -185,7 +195,7 @@
 
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <h2>INVOICE {{'WR-'.$mdata->id}}</h2>
+                                    <h2>INVOICE {{'LM-W-'.$mdata->id}}</h2>
                                     <div class="date">Date of Invoice: {{date('d/m/Y',strtotime($mdata->created_at))}}</div>
 
                                 </div>

@@ -56,7 +56,7 @@
                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                             </a>
                                         @elseif ($income->payment_type == 'WARISH')
-                                            <a href="{{ route('citizenship.pdf.aplication', $income->warish_application_id) }}"
+                                            <a href="{{ route('warish.pdf.application', $income->warish_application_id) }}"
                                                 class="btn btn-danger btn-sm" target="_blank">
                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                             </a>

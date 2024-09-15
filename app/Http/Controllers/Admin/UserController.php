@@ -10,6 +10,7 @@ use App\Models\Setting;
 use App\Models\TransactionLog;
 use App\Models\User;
 use App\Modules\Citizenship\Models\Citizenship;
+use App\Modules\Warish\Models\WarishApplication;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -804,12 +805,13 @@ class UserController extends Controller
         $user = Auth::user();
 
         if ($user->role == 4) {
-            $payment  = TransactionLog::where(function ($query) {
-                $query->whereHas('citizen', function ($q) {
-                    $q->where('ward_id', 1);
-                })->orWhereHas('warish', function ($q) {
-                    $q->whereHas('warish', function ($p) {
-                        $p->where('ward_id', 1);
+            $ward = $user->commissioner_ward_id;
+            $payment  = TransactionLog::where(function ($query) use ($ward) {
+                $query->whereHas('citizen', function ($q) use ($ward) {
+                    $q->where('ward_id', $ward);
+                })->orWhereHas('warish', function ($q) use ($ward) {
+                    $q->whereHas('warish', function ($p) use ($ward) {
+                        $p->where('ward_id', $ward);
                     });
                 });
             })->where(['commissioner_status' => 0])->paginate(15);
@@ -817,8 +819,6 @@ class UserController extends Controller
         if ($user->role == 2) {
             $payment  = TransactionLog::where(['is_active' => 'No'])->paginate(15);
         }
-
-
 
         return view('frontend.common.pending_payment')->with([
             'user' => $user,
@@ -886,9 +886,11 @@ class UserController extends Controller
 
                 Citizenship::where('id', $data->citizenship_id)->update(['digital_status' => 1]);
             }
+            if ($data->payment_type == 'WARISH') {
+                TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_status' => 1, 'digital_accept_by' => auth()->user()->id]);
 
-
-
+                WarishApplication::where('id', $data->warish_application_id)->update(['digital_status' => 1]);
+            }
 
             return redirect()->back()->with('success', 'Successfully save changed');
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -901,9 +903,14 @@ class UserController extends Controller
         $data = TransactionLog::findOrFail($id);
         try {
             if ($data->payment_type == 'CITIZENSHIP') {
-                TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'commissioner_status' => 1, 'commissioner_accept_by' => auth()->user()->id]);
+                TransactionLog::where('id',  $id)->update(['commissioner_status' => 1, 'commissioner_accept_by' => auth()->user()->id]);
 
                 Citizenship::where('id', $data->citizenship_id)->update(['commissioner_status' => 1]);
+            }
+            if ($data->payment_type == 'WARISH') {
+                TransactionLog::where('id',  $id)->update(['commissioner_status' => 1, 'commissioner_accept_by' => auth()->user()->id]);
+
+                WarishApplication::where('id', $data->warish_application_id)->update(['commissioner_status' => 1]);
             }
 
 
@@ -921,9 +928,25 @@ class UserController extends Controller
 
         $setting = Setting::first();
 
-
         $user = Auth::user();
-        $query = TransactionLog::where('is_active', 'Yes');
+
+        if ($user->role == 4) {
+            $ward = $user->commissioner_ward_id;
+            $query  = TransactionLog::where(function ($query) use ($ward) {
+                $query->whereHas('citizen', function ($q) use ($ward) {
+                    $q->where('ward_id', $ward);
+                })->orWhereHas('warish', function ($q) use ($ward) {
+                    $q->whereHas('warish', function ($p) use ($ward) {
+                        $p->where('ward_id', $ward);
+                    });
+                });
+            })->where(['commissioner_status' => 1]);
+        }
+        if ($user->role == 2) {
+            $query  = TransactionLog::where(['is_active' => 'Yes']);
+        }
+
+        // $query = TransactionLog::where('is_active', 'Yes');
         if ($request->service) {
             $query->where('payment_type', $request->service);
         }
@@ -968,9 +991,6 @@ class UserController extends Controller
 
 
         $datas = $query->orderBy('id', 'DESC')->paginate(20);
-
-
-
 
         return view('frontend.common.income_statement', compact('datas', 'user', 'setting'));
     }

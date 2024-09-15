@@ -330,7 +330,7 @@
                                 </a>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="man-service_one">
                                 <div class="lang_enbn">
                                     <a class="btn btn-xs Bn_lang" target="_blank" href="{{ route('user.warish') }}"
@@ -345,7 +345,7 @@
 
                                 <a target="_blank" href="{{ route('user.warish') }}" target="_blank">
 
-                                    <img src="{{ url('public/icons/profile.png') }}">
+                                    <img src="{{ asset('icons/profile.png') }}">
 
                                 </a>
 
@@ -355,7 +355,7 @@
                                     </h1>
                                 </a>
                             </div>
-                        </div> --}}
+                        </div>
                         {{-- Citizenship Button  --}}
 
                         @if (function_exists('luova_citizenship'))

@@ -179,7 +179,7 @@
 
                     </td>
                     <td style="text-align: right;">
-                        <h3>INVOICE {{ 'WR-' . $mdata->id }}</h3>
+                        <h3>INVOICE {{ 'LM-W-' . $mdata->id }}</h3>
                         <div class="date">Date of Invoice: {{ date('d/m/Y', strtotime($mdata->created_at)) }}</div>
 
                     </td>
