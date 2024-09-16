@@ -76,6 +76,7 @@ class SettingController extends Controller
             "phone" => 'nullable|string|max:255',
             "email" => 'nullable|string|max:255',
             "address" => 'nullable|string|max:255',
+            "website" => 'nullable|string|max:255',
             "map" => 'nullable|string|max:1000',
             "logo" => 'nullable|image',
             "banner" => 'nullable|image',
@@ -92,6 +93,7 @@ class SettingController extends Controller
         $setting->phone = $request->phone;
         $setting->email = $request->email;
         $setting->address = $request->address;
+        $setting->website = $request->website;
         $setting->map = $request->map;
         $setting->mayor_name = $request->mayor_name;
         if ($request->logo) {

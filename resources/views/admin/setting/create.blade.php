@@ -67,6 +67,18 @@
                                         </div>
 
                                     </div>
+                                    <div class="row mb-3">
+                                        <label for="example-select" class="col-12 col-md-3 col-form-label"> Website</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="website"
+                                                value="{{ old('website', $setting->website ?? '') }}" id="website"
+                                                class="form-control" placeholder="Enter website">
+                                            @error('website')
+                                                <div class="help-block text-danger">{{ $message }} </div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
 
                                     <div class="row mb-3">
                                         <label for="example-select" class="col-12 col-md-3 col-form-label">Address</label>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->default('App Name');
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
+            $table->string('website')->nullable();
             $table->string('mayor_signature')->nullable();
             $table->string('mayor_name')->nullable();
             $table->text('map')->nullable();
