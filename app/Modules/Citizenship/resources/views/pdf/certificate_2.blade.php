@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="{{ asset('assets/pdf/css/style.css') }}">
-    <title></title>
+    <title>Citizen Certificate</title>
 </head>
 @php
     $title = explode(',', $settings->name);
@@ -26,7 +26,9 @@
                         <td style="text-align: center;width:40%;">
                             <h2>{{ $title[0] ?? '' }}</h2>
                             <h3>জেলা : {{ $title[1] ?? '' }}</h3>
-                               স্থাপিত : {{ e_to_b(1972) }}
+                            স্থাপিত : {{ e_to_b(1972) }}<br>
+                            ওয়েবসাইট : {{ $settings->website ?? '' }}<br>
+                            ইমেইল : {{ $settings->email ?? '' }}
                         </td>
                         <td style="text-align: right;width:30%;">{!! $qr_code !!}</td>
                     </tr>
@@ -37,10 +39,11 @@
 
             <table style="width: 100%">
                 <tr>
-                    <td style="text-align: left; width:30%"> স্মারক নং- লা:পৌ:স:/{{ e_to_b(\Carbon\Carbon::parse($fdata->created_at)->format('Y'))}}/{{ e_to_b($fdata->id) }}</td>
+                    <td style="text-align: left; width:30%"> স্মারক নং-
+                        লা:পৌ:স:/{{ e_to_b(\Carbon\Carbon::parse($fdata->created_at)->format('Y')) }}/{{ e_to_b($fdata->id) }}
+                    </td>
                     <td style="text-align: center;width:40%;">
-                        ইমেইল : {{ $settings->email ?? '' }} <br>
-                        ওয়েবসাইট : {{ $settings->website ?? '' }}
+
                     </td>
                     <td style="text-align: right;width:30%;">
                         <p>তারিখঃ {{ e_to_b($fdata->created_at->format('d-m-Y')) }} </p>
@@ -49,10 +52,10 @@
             </table>
             <div style="text-align: center;">
                 <h4>না গ রি ক ত্ব</h4>
-                @if ($fdata->user->user_type==1)
-                <h3>সনদপত্র</h3>
-                @elseif ($fdata->user->user_type==0)
-                <h3>প্রত্যায়ন পত্র</h3>
+                @if ($fdata->user->user_type == 1)
+                    <h3>সনদপত্র</h3>
+                @elseif ($fdata->user->user_type == 0)
+                    <h3>প্রত্যায়ন পত্র</h3>
                 @endif
 
             </div>
@@ -133,18 +136,18 @@
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
                         @if (isset($fdata->ward->name))
-                            {{$fdata->ward->commissioner_name}} <br>
+                            {{ $fdata->ward->commissioner_name }} <br>
                             @if (isset($fdata->ward->commissioner_signature))
-                            <img src="{{ asset($fdata->ward->commissioner_signature) }}" alt=""
-                            height="50px" width="200px">
-                            <br>
+                                <img src="{{ asset($fdata->ward->commissioner_signature) }}" alt=""
+                                    height="50px" width="200px">
+                                <br>
                             @endif
                             {{ isset($fdata->ward->bn_name) ? $fdata->ward->bn_name : $fdata->ward->name }} নং ওয়ার্ড
                             কাউন্সিলর
                             <br>
                             {{ $settings->name ?? '' }}
                             <br>
-                            মোবাইলঃ {{ e_to_b( $fdata->ward->commissioner_phone ?? '') }}
+                            মোবাইলঃ {{ e_to_b($fdata->ward->commissioner_phone ?? '') }}
                         @endif
                     </td>
                     <td style="text-align: center;font-size: 16px; width:33.33%;">
