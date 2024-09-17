@@ -53,25 +53,29 @@
                                         @if ($income->payment_type == 'CITIZENSHIP')
                                             <a href="{{ route('citizenship.pdf.aplication', $income->citizenship_id) }}"
                                                 class="btn btn-danger btn-sm" target="_blank">
-                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                                <i class="fa fa-money" aria-hidden="true"></i> Application
                                             </a>
                                         @elseif ($income->payment_type == 'WARISH')
                                             <a href="{{ route('warish.pdf.application', $income->warish_application_id) }}"
                                                 class="btn btn-danger btn-sm" target="_blank">
-                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                                <i class="fa fa-money" aria-hidden="true"></i> Application
                                             </a>
                                         @endif
 
-                                        @if (auth()->user()->role==2)
-                                        <a href="{{ route('digital.payment_aprove', $income->id) }}"
-                                            class="btn btn-success btn-sm">Aprove</a>
-                                        @elseif (auth()->user()->role==4)
-                                        <a href="{{ route('commissioner.payment_aprove', $income->id) }}"
-                                            class="btn btn-success btn-sm">Aprove</a>
+                                        <button class="btn btn-primary btn-sm payment_approve_btn"
+                                            data-id="{{ $income->id }}">Action</button>
+                                        @if (auth()->user()->role == 2)
+                                            {{-- <button class="btn btn-primary btn-sm digital_payment_approve_btn"
+                                                data-id="{{ $income->id }}">Action</button> --}}
+
+                                            {{-- <a href="{{ route('digital.payment_aprove', $income->id) }}"
+                                            class="btn btn-success btn-sm">Aprove</a> --}}
+                                        @elseif (auth()->user()->role == 4)
+                                            {{-- <button class="btn btn-primary btn-sm commissioner_payment_aprove_btn"
+                                                data-id="{{ $income->id }}">Action</button> --}}
+                                            {{-- <a href="{{ route('commissioner.payment_aprove', $income->id) }}"
+                                            class="btn btn-success btn-sm">Aprove</a> --}}
                                         @endif
-
-
-
 
                                     </td>
 
@@ -88,6 +92,35 @@
                 </div>
             </div>
         @endif
+    </div>
+    <!-- Bootstrap v3.3.7 Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Select Status</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="log_id" id="log_id">
+                    <label for="status"> Status </label>
+                    <select name="status" class="form-control" id="status">
+                        <option value="">Select One</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Cancel</option>
+                    </select>
+                    <label for="remark"> Remark </label>
+                    <textarea name="remark" id="remark" cols="30" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="payment_approve_submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 @endsection
 @section('cusjs')
@@ -119,27 +152,44 @@
     </style>
 
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $.noConflict();
-        });
+        $(document).ready(function() {
+            // Trigger the modal with a button click
+            $('.payment_approve_btn').click(function() {
+                var id= $(this).data('id')
+                $('#log_id').val(id);
 
-        function flip(id) {
-            jQuery(".panel_" + id).toggle();
-        }
-
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('
-                                            search ') }}',
-                data: {
-                    'search': $value
-                },
-                success: function(data) {
-                    $('tbody').html(data);
-                }
+                $('#myModal').modal('show'); // Show the modal
             });
-        })
+            $('#payment_approve_submit').click(function() {
+
+                var id = $('#log_id').val();
+                var status = $('#status').val();
+                var remark = $('#remark').val();
+
+                // alert(id + '-' + status + '-'+remark);
+                $.ajax({
+                    url: "{{ route('payment_approve_ajax') }}",
+                    type: "GET",
+                    data: {
+                        id: id,
+                        status: status,
+                        remark: remark,
+                        // _token: "{{ csrf_token() }}" // Add CSRF token for protection
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                             alert(response.message);
+                            location.reload(); // Rel
+                            // Optionally update the status or the UI here
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText); // Log any error responses
+                    }
+                });
+            });
+        });
     </script>
 @endsection

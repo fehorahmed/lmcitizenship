@@ -55,8 +55,8 @@ return new class extends Migration
             $table->text('nid_file')->nullable();
             $table->text('citizenship_file')->nullable();
             $table->text('photo_file')->nullable();
-            $table->boolean('digital_status')->default(0)->comment('Digital user approved or not');
-            $table->boolean('commissioner_status')->default(0);
+            $table->unsignedTinyInteger('digital_status')->default(0)->comment('Digital user approved or not, 2=Cancel');
+            $table->unsignedTinyInteger('commissioner_status')->default(0)->comment('Commissioner user approved or not, 2=Cancel');
             $table->enum('status', ['Pending', 'Approved', 'Modification', 'Canceled'])->default('Pending');
 
             // Hasan Defaul coulmns

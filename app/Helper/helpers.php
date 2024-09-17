@@ -317,12 +317,14 @@ function pendding_payment_count($id = null)
         $pending_payment = TransactionLog::where(['is_active' => 'No'])->get()->count();
     }elseif(auth()->user()->isCommissioner()){
 
-        $pending_payment  = TransactionLog::where(function ($query) {
-            $query->whereHas('citizen', function ($q) {
-                $q->where('ward_id', 1);
-            })->orWhereHas('warish', function ($q) {
-                $q->whereHas('warish', function ($p) {
-                    $p->where('ward_id', 1);
+        $ward = auth()->user()->commissioner_ward_id;
+
+        $pending_payment  = TransactionLog::where(function ($query) use ($ward) {
+            $query->whereHas('citizen', function ($q) use ($ward) {
+                $q->where('ward_id', $ward);
+            })->orWhereHas('warish', function ($q) use ($ward) {
+                $q->whereHas('warish', function ($p) use ($ward) {
+                    $p->where('ward_id', $ward);
                 });
             });
         })->where(['commissioner_status' => 0])->count();

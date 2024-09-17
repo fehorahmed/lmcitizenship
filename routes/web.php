@@ -62,6 +62,8 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::get('/payment_aprove/{id}', [UserController::class, 'payment_aprove'])->name('digital.payment_aprove');
     Route::get('/commissioner_payment_aprove/{id}', [UserController::class, 'commissioner_payment_aprove'])->name('commissioner.payment_aprove');
 
+    Route::get('/payment_approve_ajax', [UserController::class, 'payment_approve_ajax'])->name('payment_approve_ajax');
+
     Route::get('/income_statement', [UserController::class, 'income_statement'])->name('digital.income_statement');
 
 

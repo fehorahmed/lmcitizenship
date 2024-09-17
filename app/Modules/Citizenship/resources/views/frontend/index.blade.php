@@ -31,13 +31,11 @@
                                     </small>
                                 </td>
                                 <td rowspan="4">
-
-
-                                    {{-- @if ($item->payment_info)
-                                        @include('account::widget.payment-info', [
+                                    @if ($item->payment_info)
+                                        @include('frontend.account.payment-info', [
                                             'payment' => $item->payment_info,
                                         ])
-                                    @endif --}}
+                                    @endif
                                 </td>
                                 <td>আবেদন ফরম</td>
                                 <td>

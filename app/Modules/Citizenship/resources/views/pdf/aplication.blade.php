@@ -121,8 +121,10 @@
 
     @if (Route::has('login'))
         <div style="background-color: #ADD3CA; text-align:center; margin-bottom:10px;">
-            <h2>{{ $title[0] }}</h2>
-            <p>{{ $title[1] }}</p>
+            <h2 style="margin-bottom:0px;">{{ $title[0] }} </h2>
+            <span style="font-size: 22px;">{{ $title[1] }}</span> <br>
+           <span>ওয়েবসাইট : {{ $settings->website ?? '' }}</span> <br>
+           <span> ইমেইল : {{ $settings->email ?? '' }}</span>
         </div>
         <table style="width: 100%">
             <tr>

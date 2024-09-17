@@ -39,6 +39,7 @@ return new class extends Migration
             $table->foreignId('commissioner_accept_by')->nullable();
             $table->foreign('commissioner_accept_by')->on('users')->references('id');
 
+            $table->string('remarks')->nullable();
             $table->foreignId('created_by');
             $table->foreign('created_by')->on('users')->references('id');
             $table->foreign('user_id')->on('users')->references('id');

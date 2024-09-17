@@ -53,6 +53,12 @@
                             @endif
                         </a>
                     </li>
+                    <li class="{{ Route::is('digital.income_statement') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.income_statement') }}">
+                            সনদ তালিকা
+
+                        </a>
+                    </li>
                 @endif
                 @if (Auth::user()->isCommissioner())
                     <li class="{{ Route::is('digital.pending_payment') ? 'nav_active' : null }}">
@@ -61,6 +67,12 @@
                             @if(pendding_payment_count())
                             <span class="text-danger notice_icon">{{ pendding_payment_count() }}</span>
                             @endif
+                        </a>
+                    </li>
+                    <li class="{{ Route::is('digital.income_statement') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.income_statement') }}">
+                            সনদ তালিকা
+
                         </a>
                     </li>
                 @endif
@@ -79,12 +91,7 @@
                                     ড্যাশবোর্ড
                                 </a>
                             </li>
-                            <li>
-                                {{-- <a href="{{ url('income_statement') }}"> --}}
-                                <a href="{{ route('digital.income_statement') }}">
-                                    আয়ের হিসাব
-                                </a>
-                            </li>
+
                         @endif
                         @if (Auth::user()->isDigitalCenter())
                             <li>
@@ -98,19 +105,7 @@
                                 </a>
                             </li> --}}
                             <li class="separator"></li>
-                            <li>
-                                <a href="{{ url('income_statement') }}">
-                                    আয়ের হিসাব
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->isCommissioner())
 
-                            <li>
-                                <a href="{{ url('income_statement') }}">
-                                    আয়ের হিসাব
-                                </a>
-                            </li>
                         @endif
                         @if (Auth::user()->isMember())
                             <li>

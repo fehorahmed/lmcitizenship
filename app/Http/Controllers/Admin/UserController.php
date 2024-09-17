@@ -898,6 +898,69 @@ class UserController extends Controller
             return redirect()->back()->withErrors($ex->getMessage());
         }
     }
+    public function payment_approve_ajax(Request $request)
+    {
+        $rules=[
+            'id'=>'required|numeric',
+            'status'=>'required|numeric',
+            'remark'=>'nullable|string',
+        ];
+        $validation = Validator::make($request->all(), $rules);
+
+        if ($validation->fails()) {
+            return response([
+                'status' => false,
+                'message' => $validation->errors()->first(),
+            ]);
+        }
+        $id = $request->id;
+        $status = $request->status;
+        $remark = $request->remark;
+        $data = TransactionLog::findOrFail($id);
+
+        // dd($model);
+        try {
+
+            if (auth()->user()->role == 2) {
+
+                if ($data->payment_type == 'CITIZENSHIP') {
+                    TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'digital_status' => $status, 'remarks'=>$remark , 'digital_accept_by' => auth()->user()->id]);
+
+                    Citizenship::where('id', $data->citizenship_id)->update(['digital_status' =>$status, 'remarks'=>$remark ]);
+                }
+                if ($data->payment_type == 'WARISH') {
+                    TransactionLog::where('id',  $id)->update(['is_active' => 'Yes', 'remarks'=>$remark , 'digital_status' => $status, 'digital_accept_by' => auth()->user()->id]);
+
+                    WarishApplication::where('id', $data->warish_application_id)->update(['digital_status' => $status,'remarks'=>$remark ]);
+                }
+            }
+            if (auth()->user()->role == 4) {
+                if ($data->payment_type == 'CITIZENSHIP') {
+                    TransactionLog::where('id',  $id)->update(['commissioner_status' => $status, 'remarks'=>$remark , 'commissioner_accept_by' => auth()->user()->id]);
+
+                    Citizenship::where('id', $data->citizenship_id)->update(['commissioner_status' => $status, 'remarks'=>$remark]);
+                }
+                if ($data->payment_type == 'WARISH') {
+                    TransactionLog::where('id',  $id)->update(['commissioner_status' => $status, 'remarks'=>$remark , 'commissioner_accept_by' => auth()->user()->id]);
+
+                    WarishApplication::where('id', $data->warish_application_id)->update(['commissioner_status' => $status, 'remarks'=>$remark ,]);
+                }
+            }
+
+            return response([
+                'status'=>true,
+                'message'=>'Successfully save changed',
+            ]);
+
+        } catch (\Throwable $ex) {
+            return response([
+                'status'=>false,
+                'message'=>$ex->getMessage(),
+            ]);
+        }
+
+
+    }
     public function commissioner_payment_aprove(Request $request, $id)
     {
         $data = TransactionLog::findOrFail($id);

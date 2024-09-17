@@ -40,8 +40,8 @@ return new class extends Migration
             $table->integer('sort_by')->nullable();
             $table->enum('is_active', ['Yes', 'No'])->default('Yes');
 
-            $table->boolean('digital_status')->default(0)->comment('Digital user approved or not');
-            $table->boolean('commissioner_status')->default(0);
+            $table->unsignedTinyInteger('digital_status')->default(0)->comment('Digital user approved or not, 2=Cancel');
+            $table->unsignedTinyInteger('commissioner_status')->default(0)->comment('Commissioner user approved or not, 2=Cancel');
 
             $table->foreignId('create_by')->nullable();
             $table->foreign('create_by')->references('id')->on('users');
