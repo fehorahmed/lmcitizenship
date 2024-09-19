@@ -986,7 +986,6 @@ class UserController extends Controller
 
 
     public function income_statement(Request $request)
-
     {
 
         $setting = Setting::first();
@@ -1056,5 +1055,77 @@ class UserController extends Controller
         $datas = $query->orderBy('id', 'DESC')->paginate(20);
 
         return view('frontend.common.income_statement', compact('datas', 'user', 'setting'));
+    }
+
+    public function cancel_statement(Request $request)
+    {
+
+        $setting = Setting::first();
+
+        $user = Auth::user();
+
+        if ($user->role == 4) {
+            $ward = $user->commissioner_ward_id;
+            $query  = TransactionLog::where(function ($query) use ($ward) {
+                $query->whereHas('citizen', function ($q) use ($ward) {
+                    $q->where('ward_id', $ward);
+                })->orWhereHas('warish', function ($q) use ($ward) {
+                    $q->whereHas('warish', function ($p) use ($ward) {
+                        $p->where('ward_id', $ward);
+                    });
+                });
+            })->where(['commissioner_status' => 0]);
+        }
+        if ($user->role == 2) {
+            $query  = TransactionLog::where(['digital_status' => 0, 'is_active' => 'Yes']);
+        }
+
+        // $query = TransactionLog::where('is_active', 'Yes');
+        if ($request->service) {
+            $query->where('payment_type', $request->service);
+        }
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        if ($request->Download) {
+            // dd($request->all());
+            $settings = Setting::first();
+            $data['datas'] =  $datas = $query->orderBy('id', 'DESC')->get();
+            $data['settings'] = $settings;
+            // $data['rules'] = $rules;
+
+            //Mpdf
+            $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+            $fontDirs = $defaultConfig['fontDir'];
+
+            $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+            $fontData = $defaultFontConfig['fontdata'];
+
+            $mpdf = new \Mpdf\Mpdf([
+                'fontDir' => array_merge($fontDirs, [
+                    public_path('fonts'),
+                ]),
+                'fontdata' => $fontData + [ // lowercase letters only in font key
+                    'solaimanlipi' => [
+                        'R' => 'SolaimanLipi12.ttf',
+                        'useOTL' => 0xFF,
+                    ]
+                ],
+                'default_font' => 'solaimanlipi',
+                // 'orientation' => 'L',
+                // 'margin_top' => 0,
+                // 'margin_left' => 0,
+                // 'margin_right' => 0,
+                'mirrorMargins' => true
+            ]);
+            $mpdf->WriteHTML(view('admin.pdf.payments',  $data));
+            $mpdf->Output("payments.pdf", 'D');
+        }
+
+
+        $datas = $query->orderBy('id', 'DESC')->paginate(20);
+
+        return view('frontend.common.cancel_statement', compact('datas', 'user', 'setting'));
     }
 }

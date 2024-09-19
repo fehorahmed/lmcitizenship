@@ -1,6 +1,6 @@
 @php
 
-    $menus = \App\Models\MainMenu::where(['type' => 'main', 'status' => 1])->get();
+    $menus = \App\Models\MainMenu::where(['type' => 'main', 'status' => 1])->orderBy('order')->get();
 
 @endphp
 <div class="container">
@@ -19,11 +19,11 @@
                             @foreach ($menus as $menu)
                                 @if (count($menu->subMenu) > 0)
                                     <li class="has-sub">
-                                        <a href="menu/{{$menu->url}}">{{$menu->title}}</a>
+                                        <a href="{{url('menu/'.$menu->url)}}">{{$menu->title}}</a>
                                         <ul>
                                             @foreach ($menu->subMenu as $item)
                                             <li class="">
-                                                <a href="{{$item->url}}">{{$item->title}}
+                                                <a href="{{url('menu/'.$item->url)}}">{{$item->title}}
                                                 </a>
                                             </li>
                                             @endforeach
@@ -31,7 +31,7 @@
                                     </li>
                                 @else
                                 <li class="">
-                                    <a href="menu/{{$menu->url}}">{{$item->title}}</a>
+                                    <a href="{{url('menu/'.$menu->url)}}">{{$item->title}}</a>
                                 </li>
                                 @endif
                             @endforeach

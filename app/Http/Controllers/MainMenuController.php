@@ -50,8 +50,9 @@ class MainMenuController extends Controller
         $data = new MainMenu();
         $data->title= $request->title;
         $data->type= $request->type;
-
-        $data->main_menu_id= $request->main_menu_id;
+        if($request->type== 'sub'){
+            $data->main_menu_id= $request->main_menu_id;
+        }
 
         $data->url= $request->url;
         $data->order= $request->order;
@@ -82,7 +83,8 @@ class MainMenuController extends Controller
      */
     public function edit(MainMenu $mainMenu)
     {
-        //
+        $menus = MainMenu::where('type','main')->get();
+        return view('admin.home.main_menu.edit',compact('menus','mainMenu'));
     }
 
     /**
@@ -94,7 +96,30 @@ class MainMenuController extends Controller
      */
     public function update(Request $request, MainMenu $mainMenu)
     {
-        //
+        $request->validate([
+            "title" => 'required|string|max:255',
+            "type" => 'required|string|max:255',
+            "main_menu_id" => 'nullable|required_if:type,sub|numeric',
+            "url" => 'required|string|max:255|unique:main_menus,url,'.$mainMenu->id,
+            "order" => 'required|numeric',
+            "content" => 'required|string|max:5000',
+            "status" => 'required|boolean',
+        ]);
+
+        $mainMenu->title= $request->title;
+        $mainMenu->type= $request->type;
+
+        if($request->type== 'sub'){
+            $mainMenu->main_menu_id= $request->main_menu_id;
+        }
+
+        $mainMenu->url= $request->url;
+        $mainMenu->order= $request->order;
+        $mainMenu->content= $request->content;
+        $mainMenu->status= $request->status;
+        $mainMenu->save();
+
+        return redirect()->route('admin.main-menu.index')->with('success','Menu updated successfully.');
     }
 
     public function view($url)

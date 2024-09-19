@@ -24,7 +24,7 @@
                     </li>
                 @endif
                 @if (Auth::user()->isDigitalCenter())
-                  {{--   <li class="{{ Request::segment(1) == 'pending_payment' ? 'nav_active' : null }}">
+                    {{--   <li class="{{ Request::segment(1) == 'pending_payment' ? 'nav_active' : null }}">
                         <a href="{{ url('/pending_payment') }}">
 
                             অপেক্ষারত পেমেন্ট
@@ -44,11 +44,32 @@
                     </li> --}}
                 @endif
 
-                @if (Auth::user()->isDigitalCenter())
+                @if (Auth::user()->isDigitalCenter() || Auth::user()->isCommissioner())
                     <li class="{{ Route::is('digital.pending_payment') ? 'nav_active' : null }}">
                         <a href="{{ route('digital.pending_payment') }}">
                             অপেক্ষারত যাচাই
-                            @if(pendding_payment_count())
+                            @if (pendding_payment_count())
+                                <span class="text-danger notice_icon">{{ pendding_payment_count() }}</span>
+                            @endif
+                        </a>
+                    </li>
+                    <li class="{{ Route::is('digital.income_statement') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.income_statement') }}">
+                            সনদ তালিকা
+
+                        </a>
+                    </li>
+                    <li class="{{ Route::is('digital.cancel_statement') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.cancel_statement') }}">
+                            বাতিল তালিকা
+                        </a>
+                    </li>
+                @endif
+                {{-- @if (Auth::user()->isCommissioner())
+                    <li class="{{ Route::is('digital.pending_payment') ? 'nav_active' : null }}">
+                        <a href="{{ route('digital.pending_payment') }}">
+                            অপেক্ষারত যাচাই
+                            @if (pendding_payment_count())
                             <span class="text-danger notice_icon">{{ pendding_payment_count() }}</span>
                             @endif
                         </a>
@@ -59,55 +80,20 @@
 
                         </a>
                     </li>
-                @endif
-                @if (Auth::user()->isCommissioner())
-                    <li class="{{ Route::is('digital.pending_payment') ? 'nav_active' : null }}">
-                        <a href="{{ route('digital.pending_payment') }}">
-                            অপেক্ষারত যাচাই
-                            @if(pendding_payment_count())
-                            <span class="text-danger notice_icon">{{ pendding_payment_count() }}</span>
-                            @endif
-                        </a>
-                    </li>
-                    <li class="{{ Route::is('digital.income_statement') ? 'nav_active' : null }}">
-                        <a href="{{ route('digital.income_statement') }}">
-                            সনদ তালিকা
-
-                        </a>
-                    </li>
-                @endif
-                <li
-                    class="dropdown
+                @endif --}}
+                @if (Auth::user()->isMember())
+                    <li
+                        class="dropdown
                     {{ Request::segment(1) == 'add_profile' || Request::segment(1) == 'profile_list' || Request::segment(1) == 'income_statement' ? 'nav_active' : null }}
                         ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="true">
-                        প্রোফাইল সম্পাদনা <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="text-align: left;">
-                        @if (Auth::user()->isAdmin())
-                            <li>
-                                <a href="{{ url('dashboard') }}">
-                                    ড্যাশবোর্ড
-                                </a>
-                            </li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="true">
+                            প্রোফাইল সম্পাদনা <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="text-align: left;">
 
-                        @endif
-                        @if (Auth::user()->isDigitalCenter())
-                            <li>
-                                <a href="{{ url('add_profile') }}">
-                                    নতুন প্রোফাইল সংযোজন করুন
-                                </a>
-                            </li>
-                            {{-- <li>
-                                <a href="{{ url('profile_list') }}">
-                                    সকল প্রোফাইল
-                                </a>
-                            </li> --}}
-                            <li class="separator"></li>
 
-                        @endif
-                        @if (Auth::user()->isMember())
+
                             <li>
                                 <a href="{{ url('profile_edit') }}">প্রোফাইল</a>
                             </li>
@@ -118,10 +104,10 @@
                             <!-- <li>
                                 <a href="{{ url('business') }}">ব্যবসা</a>
                             </li> -->
-                        @endif
-                    </ul>
-                </li>
 
+                        </ul>
+                    </li>
+                @endif
                 <li class="pull-right">
                     @if (auth()->user()->isAdmin())
                         <a href="{{ url('/dashboard') }}">

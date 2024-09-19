@@ -71,8 +71,7 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::get('/payment_approve_ajax', [UserController::class, 'payment_approve_ajax'])->name('payment_approve_ajax');
 
     Route::get('/income_statement', [UserController::class, 'income_statement'])->name('digital.income_statement');
-
-
+    Route::get('/cancel_statement', [UserController::class, 'cancel_statement'])->name('digital.cancel_statement');
 });
 
 //Common
@@ -96,8 +95,8 @@ Route::group(['middleware' => ['auth:web', 'admin.check'], 'prefix' => 'admin'],
         Route::get('/', [MainMenuController::class, 'index'])->name('admin.main-menu.index');
         Route::get('/create', [MainMenuController::class, 'create'])->name('admin.main-menu.create');
         Route::post('/store', [MainMenuController::class, 'store'])->name('admin.main-menu.store');
-        Route::get('/{main_menu}/edit', [MainMenuController::class, 'edit'])->name('admin.main-menu.edit');
-        Route::post('{main_menu}/edit', [MainMenuController::class, 'update'])->name('admin.main-menu.update');
+        Route::get('/{mainMenu}/edit', [MainMenuController::class, 'edit'])->name('admin.main-menu.edit');
+        Route::post('{mainMenu}/edit', [MainMenuController::class, 'update'])->name('admin.main-menu.update');
     });
 
     Route::group(['prefix' => 'front-dashboard'], function () {

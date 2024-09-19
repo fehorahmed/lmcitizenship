@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('main_menus', function (Blueprint $table) {
             $table->id();
             $table->enum('type',['main','sub']);
+            $table->enum('position',['header','footer'])->default('header');
             $table->foreignId('main_menu_id')->nullable();
             $table->string('title');
             $table->string('url');
