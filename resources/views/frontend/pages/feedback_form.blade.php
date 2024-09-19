@@ -3,6 +3,7 @@
 @section('content')
     <!--slider-area-start-->
     @include('frontend.common.slider')
+    @include('frontend.common.main_menu')
     <!--slider-area-end-->
     <!-- marquee-area-start-->
     @include('frontend.common.marquee')

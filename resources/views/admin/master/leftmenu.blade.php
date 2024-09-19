@@ -197,6 +197,9 @@
                         <li>
                             <a href="{{route('admin.front-contact.index')}}">Contact Info</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.main-menu.index')}}">Main Menus</a>
+                        </li>
 
                     </ul>
                 </div>

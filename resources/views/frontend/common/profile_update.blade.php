@@ -2,6 +2,7 @@
 
 @section('content')
     @include('frontend.common.slider')
+    @include('frontend.common.main_menu')
     @include('frontend.common.marquee')
 
     @if (Route::has('login'))

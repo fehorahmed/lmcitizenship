@@ -3,6 +3,7 @@
 @section('content')
     <!--slider-area-start-->
     @include('frontend.common.slider')
+    @include('frontend.common.main_menu')
     <!--slider-area-end-->
     <!-- marquee-area-start-->
     @include('frontend.common.marquee')
@@ -15,7 +16,7 @@
                     @if(Session::has('message'))
                         <div class="alert alert-danger">{{ Session::get('message') }}</div>
                     @endif
-                    
+
                     @if(Session::has('mail_sent'))
                         <div class="alert alert-info">{{ Session::get('mail_sent') }}</div>
                     @else
@@ -41,7 +42,7 @@
                     </div>
 
                     {{ Form::close() }}
-                    @endif 
+                    @endif
                 </div>
             </div>
         </div>

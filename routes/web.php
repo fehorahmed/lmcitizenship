@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePersonListController;
+use App\Http\Controllers\MainMenuController;
 use App\Http\Controllers\MohollaController;
 use App\Http\Controllers\PostOfficeController;
 use App\Http\Controllers\ProfessionController;
@@ -40,6 +41,11 @@ Route::get('/{id}/details', [HomeController::class, 'personDetails'])->name('hom
 // Route::get('/register_form', [HomeController::class, 'home'])->name('home');
 
 Route::post('/user-registration', [UserController::class, 'userRegistration'])->name('user.registration');
+
+Route::get('/menu/{url}', [MainMenuController::class, 'view'])->name('home.main_menu');
+
+
+
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware([
     'auth:sanctum', 'admin.check',
@@ -86,6 +92,13 @@ Route::group(['middleware' => ['auth:web', 'admin.check'], 'prefix' => 'admin'],
         Route::get('/{id}/view', [UserController::class, 'userView'])->name('admin.registration.view');
     });
 
+    Route::group(['prefix' => 'main-menu'], function () {
+        Route::get('/', [MainMenuController::class, 'index'])->name('admin.main-menu.index');
+        Route::get('/create', [MainMenuController::class, 'create'])->name('admin.main-menu.create');
+        Route::post('/store', [MainMenuController::class, 'store'])->name('admin.main-menu.store');
+        Route::get('/{main_menu}/edit', [MainMenuController::class, 'edit'])->name('admin.main-menu.edit');
+        Route::post('{main_menu}/edit', [MainMenuController::class, 'update'])->name('admin.main-menu.update');
+    });
 
     Route::group(['prefix' => 'front-dashboard'], function () {
         Route::get('/', [HomePersonListController::class, 'index'])->name('admin.front-dashboard.list-of-person.index');

@@ -3,7 +3,7 @@
 
 <script src="{{ asset('frontend/js/plugins.js') }}"></script>
 <script src="{{ asset('frontend/js/mousewheel.js') }}"></script>
-{{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/main.js') }}"></script>
 <script src="{{ asset('cssc/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

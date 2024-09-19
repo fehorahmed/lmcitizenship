@@ -9,6 +9,7 @@
     @endphp
 
     @include('frontend.common.slider')
+    @include('frontend.common.main_menu')
 
     @include('frontend.common.marquee')
 
