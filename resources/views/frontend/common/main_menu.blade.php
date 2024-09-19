@@ -1,6 +1,6 @@
 @php
 
-    $menus = \App\Models\MainMenu::where(['type' => 'main', 'status' => 1])->orderBy('order')->get();
+    $menus = \App\Models\MainMenu::where(['type' => 'main', 'status' => 1,'position'=>'header'])->orderBy('order')->get();
 
 @endphp
 <div class="container">

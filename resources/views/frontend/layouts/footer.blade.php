@@ -94,6 +94,7 @@
 <!-- footer-top area end -->
 @php
         $setting = \App\Models\Setting::first();
+        $menus = \App\Models\MainMenu::where(['status'=>1, 'position'=>'footer'])->orderBy('order')->get();
     if ($setting) {
         $name = $setting->name;
         $map_link = $setting->map;
@@ -111,11 +112,10 @@
                     <div class="footer-down-left">
                         <div class="ftr-menu">
                             <ul class="list-unstyled">
-                                <li><a href="faq">অভিযোগ ও অনুসন্ধান</a></li>
-                                <li><a href="sitemap">সাইট ম্যাপ</a></li>
-                                <li><a href="login_now">ওয়েব এডমিন</a></li>
-                                <li><a href="feedback_form">ফিডব্যাক ফরম</a></li>
-                                <li><a href="varification">সনদ যাচাই করুন</a></li>
+                                @foreach ($menus as $menu)
+                                <li><a href="{{url('menu/'.$menu->url)}}">{{$menu->title}}</a></li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <p>{{ $name }} </p>
