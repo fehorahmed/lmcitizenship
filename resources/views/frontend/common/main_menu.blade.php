@@ -31,7 +31,7 @@
                                     </li>
                                 @else
                                 <li class="">
-                                    <a href="{{url('menu/'.$menu->url)}}">{{$item->title}}</a>
+                                    <a href="{{url('menu/'.$menu->url)}}">{{$menu->title}}</a>
                                 </li>
                                 @endif
                             @endforeach
