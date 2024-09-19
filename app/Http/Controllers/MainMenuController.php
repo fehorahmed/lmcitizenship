@@ -44,12 +44,14 @@ class MainMenuController extends Controller
             "url" => 'required|string|max:255|unique:main_menus,url',
             "order" => 'required|numeric',
             "content" => 'required|string|max:5000',
+            "position" => 'required|string|max:255',
             "status" => 'required|boolean',
         ]);
 
         $data = new MainMenu();
         $data->title= $request->title;
         $data->type= $request->type;
+        $data->position = $request->position;
         if($request->type== 'sub'){
             $data->main_menu_id= $request->main_menu_id;
         }
@@ -103,12 +105,13 @@ class MainMenuController extends Controller
             "url" => 'required|string|max:255|unique:main_menus,url,'.$mainMenu->id,
             "order" => 'required|numeric',
             "content" => 'required|string|max:5000',
+            "position" => 'required|string|max:255',
             "status" => 'required|boolean',
         ]);
 
         $mainMenu->title= $request->title;
         $mainMenu->type= $request->type;
-
+        $mainMenu->position = $request->position;
         if($request->type== 'sub'){
             $mainMenu->main_menu_id= $request->main_menu_id;
         }

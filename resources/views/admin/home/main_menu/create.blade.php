@@ -41,6 +41,22 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="designation" class="col-12 col-md-3 col-form-label">Menu Position</label>
+                                <div class="col-12 col-md-9">
+                                    <select name="position" id="position" class="form-select">
+                                        <option value="">Select One</option>
+                                        <option value="header" {{ old('position') == 'header' ? 'selected' : '' }}>Header Menu
+                                        </option>
+                                        <option value="footer" {{ old('position') == 'footer' ? 'selected' : '' }}>Footer Menu
+                                        </option>
+                                    </select>
+                                    @error('position')
+                                        <div class="help-block text-danger">{{ $message }} </div>
+                                    @enderror
+                                </div>
+
+                            </div>
+                            <div class="row mb-3">
                                 <label for="designation" class="col-12 col-md-3 col-form-label">Menu Type</label>
                                 <div class="col-12 col-md-9">
                                     <select name="type" id="type" class="form-select">
